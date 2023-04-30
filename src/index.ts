@@ -1,1 +1,1 @@
-console.log('Hello, world');
+import './fun/fun';
