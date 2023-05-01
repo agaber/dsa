@@ -1,1 +1,1 @@
-import './fun/fun';
+import * as bits from '@/bits/bits';
