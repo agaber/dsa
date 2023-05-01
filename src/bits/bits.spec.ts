@@ -55,7 +55,6 @@ describe("fromBinaryString", () => {
   });
 });
 
-
 describe("hammingWeight", () => {
   it('should calculate hammingWeight', () => {
     const number1 = bits.fromBinaryString('00000000000000000000000000001011');

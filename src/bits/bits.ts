@@ -20,9 +20,8 @@ export function fromBinaryString(binary: string): number {
     if (binary[i] !== '0' && binary[i] !== '1') {
       throw new Error('invalid binary string');
     }
-    let digit = Number(binary[i]);
     number <<= 1;
-    number += digit;
+    number += Number(binary[i]);
   }
   return number;
 }
@@ -41,11 +40,32 @@ export function hammingWeight(n: number): number {
     count++;
   }
   return count;
+
+  // Other implementations need to assume the number of bits.
+  // Doing this while n != 0 will not work for negative numbers.
+  // let count = 0;
+  // for (let i = 0; i < 32; i++) {
+  //   if ((n & 1) == 1) count++;
+  //   n >>= 1;
+  // }
+  // return count;
 };
 
+/**
+ * Given an integer n, return an array ans of length n + 1 such that for each i 
+ * (0 <= i <= n), ans[i] is * the number of 1's in the binary representation of i.
+ * 
+ * https://leetcode.com/problems/counting-bits/
+ */
+function countBits(n: number): number[] {
+  let answer = Array(n + 1);
+  for (let i = 0; i <= n; i++) {
+    answer[i] = hammingWeight(i);
+  }
+  return answer;
+};
 
 // TODO: Add numbers without using +.
 export function sum(num1: number, num2: number): number {
   return num1 + num2;
 }
-
