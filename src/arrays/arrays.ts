@@ -154,7 +154,7 @@ export function countNumPairs(numbers: number[], target: number): number {
     counts.set(numbers[i], (counts.get(numbers[i]) || 0) + 1);
   }
   return result;
-}
+};
 
 /** Same as countNumPairs except actually return the pairs. */
 export function findNumPairs(numbers: number[], target: number): number[][] {
@@ -170,4 +170,76 @@ export function findNumPairs(numbers: number[], target: number): number[][] {
     counts.set(number, (counts.get(number) || 0) + 1);
   }
   return result;
-}
+};
+
+/**
+ * Given an array of strings strs, group the anagrams together. You can return 
+ * the answer in any order.
+ * 
+ * An Anagram is a word or phrase formed by rearranging the letters of a
+ * different word or phrase, typically using all the original letters exactly
+ * once.
+ */
+// Time: O(n * m) where n is the number of strings
+//       and m is the length of each string.
+// Space: O(n)
+export function groupAnagrams(strs: string[]): string[][] {
+  // Time: O(m), where m is the length of the string.
+  // Space: O(26 * 3), store an array of len 26 and string of len 26 * 2.
+  // Use a hash algo a bit better than sorting.
+  // I originally tried to do an int hash as if I was hashing for a map
+  // but obviously that leads to collisions.
+  function hash(str: string): string {
+    // return [...str].sort().join('')
+    const arr = Array(26).fill(0);
+    for (const s of str) {
+      arr[(s.codePointAt(0)! - 'a'.codePointAt(0)!)] += 1
+    }
+    return arr.join('#');
+  }
+
+  const map = new Map<string, string[]>();
+
+  // Time: O(n * m), where n is the number of strings 
+  //   and m is the length of each string.
+  // Space: O(n)
+  for (const str of strs) {
+    const shash = hash(str);
+    const anagrams = map.get(shash) || [];
+    map.set(shash, [...anagrams, str]);
+  }
+
+  // Time: O(n) where n is the number of strings.
+  //        Worst case is that each anagram was unique.
+  // Space: O(1) - don't count the output in analysis.
+  const result = [];
+  for (const arr of map.values()) {
+    result.push(arr);
+  }
+  return result;
+};
+
+/**
+ * Top K Frequent Elements
+ * 
+ * Given an integer array nums and an integer k, return the k most frequent
+ * elements. You may return the answer in any order.
+ * 
+ * This is a Blind 75 question.
+ * 
+ * Time complexity: O(n log n)
+ * Space complexity: O(n)
+ * 
+ * https://leetcode.com/problems/top-k-frequent-elements
+ */
+export function topKFrequent(nums: number[], k: number): number[] {
+  const counts = new Map<number, number>();
+  nums.forEach(num => counts.set(num, (counts.get(num) || 0) + 1));
+  const results: number[] = [...counts.keys()]
+    .sort((x, y) => counts.get(y)! - counts.get(x)!);
+  const answer: number[] = [];
+  for (let i = 0; i < k; i++) {
+    answer.push(results[i]);
+  }
+  return answer;
+};

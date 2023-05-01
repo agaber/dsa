@@ -9,11 +9,21 @@ describe('Contains Duplicates', () => {
   });
 });
 
-describe('isAnagram', () => {
+describe('anagrams', () => {
   it('should determine if strings are anagrams', () => {
     expect(arrays.isAnagram("anagram", "nagaram")).toEqual(true);
     expect(arrays.isAnagram("rat", "car")).toEqual(false);
     expect(arrays.isAnagram("monkey", "monk")).toEqual(false);
+  });
+
+  it('should group anagram', () => {
+    expect(arrays.groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat']))
+      .toEqual([['eat', 'tea', 'ate'], ['tan', 'nat'], ['bat']]);
+    expect(arrays.groupAnagrams([''])).toEqual([['']]);
+    expect(arrays.groupAnagrams(['a'])).toEqual([['a']]);
+    expect(arrays.groupAnagrams(['bdddddddddd', 'bbbbbbbbbbc']))
+      .toEqual([['bdddddddddd'], ['bbbbbbbbbbc']]);
+
   });
 });
 
@@ -41,5 +51,13 @@ describe('Two Sum', () => {
     expect(arrays.findNumPairs([1, 2, 1, 1], 3)).toEqual([[1, 2], [2, 1], [2, 1]]);
     expect(arrays.findNumPairs([1, 2, 1, 1, 2], 3))
       .toEqual([[1, 2], [2, 1], [2, 1], [1, 2], [1, 2], [1, 2]]);
+  });
+});
+
+describe('Top K Frequent Numbers', () => {
+  it('should return top k frequent numbers', () => {
+    expect(arrays.topKFrequent([1, 1, 1, 2, 2, 3], 2)).toEqual([1, 2]);
+    expect(arrays.topKFrequent([1], 1)).toEqual([1]);
+    expect(arrays.topKFrequent([3, 0, 1, 0], 1)).toEqual([0]);
   });
 });
