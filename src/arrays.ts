@@ -230,6 +230,10 @@ export function groupAnagrams(strs: string[]): string[][] {
  * Time complexity: O(n log n)
  * Space complexity: O(n)
  * 
+ * If you have access to it (I think you need to pay for leetcode subscription
+ * to see it), check out the editorial section. There are some other pretty
+ * cool algorithms to find the Kth element.
+ * 
  * https://leetcode.com/problems/top-k-frequent-elements
  */
 export function topKFrequent(nums: number[], k: number): number[] {
@@ -240,6 +244,51 @@ export function topKFrequent(nums: number[], k: number): number[] {
   const answer: number[] = [];
   for (let i = 0; i < k; i++) {
     answer.push(results[i]);
+  }
+  return answer;
+};
+
+/**
+ * Product of Array Except Self
+ * 
+ * Given an integer array nums, return an array answer such that answer[i] is
+ * equal to the product of all the elements of nums except nums[i].
+ * 
+ * The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit
+ * integer.
+ * 
+ * You must write an algorithm that runs in O(n) time and without using the 
+ * division operation.
+ * 
+ * A Blind 75 question. 
+ * 
+ * Time complexity: O(n)
+ * Space complexity: O(n)
+ * See my work in leetcode. There is a way to do this in O(1) space complexity
+ * but it confuses me and I am not including it here.
+ * 
+ * https://leetcode.com/problems/product-of-array-except-self
+ */
+export function productExceptSelf(nums: number[]): number[] {
+  const prefix = Array(nums.length);
+  const postfix = Array(nums.length);
+
+  for (let i = 0; i < nums.length; i++) {
+    const prev = i === 0 ? 1 : prefix[i - 1];
+    prefix[i] = nums[i] * prev;
+
+    const j = nums.length - i - 1;
+    const post = j === nums.length - 1 ? 1 : postfix[j + 1];
+    postfix[j] = nums[j] * post;
+  }
+
+  const answer = Array(nums.length);
+  for (let i = 0; i < nums.length; i++) {
+    const prev = i === 0 ? 1 : prefix[i - 1];
+    const post = i === nums.length - 1 ? 1 : postfix[i + 1];
+    answer[i] = prev * post;
+    // Something weird on nodejs (it doesn't happen on leetcode)
+    if (answer[i] === -0) answer[i] = 0;
   }
   return answer;
 };

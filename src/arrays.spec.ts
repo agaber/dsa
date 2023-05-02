@@ -61,3 +61,10 @@ describe('Top K Frequent Numbers', () => {
     expect(arrays.topKFrequent([3, 0, 1, 0], 1)).toEqual([0]);
   });
 });
+
+describe('Product of Array Except Self', () => {
+  it('should return array of products', () => {
+    expect(arrays.productExceptSelf([1, 2, 3, 4])).toEqual([24, 12, 8, 6]);
+    expect(arrays.productExceptSelf([-1, 1, 0, -3, 3])).toEqual([0, 0, 9, 0, 0]);
+  });
+});
