@@ -292,3 +292,77 @@ export function productExceptSelf(nums: number[]): number[] {
   }
   return answer;
 };
+
+/**
+ * Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be 
+ * validated according to the following rules:
+ * 
+ * - Each row must contain the digits 1-9 without repetition.
+ * - Each column must contain the digits 1-9 without repetition.
+ * - Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 
+ *   without repetition.
+ * 
+ * Note: A Sudoku board (partially filled) could be valid but is not necessarily
+ * solvable. Only the filled cells need to be validated according to the
+ * mentioned rules.
+ * 
+ * https://leetcode.com/problems/valid-sudoku/
+ */
+export function isValidSudoku(board: string[][]): boolean {
+  function getQuadrant(row: number, col: number): number {
+    row = Math.floor(row / 3);
+    col = Math.floor(col / 3);
+    return (row * 3) + col;
+  }
+
+  // Can use a map too.
+  // It can also be a 2D array instead of an array of sets.
+  // Bitmask is another option.
+  const rows = Array(9);
+  const columns = Array(9);
+  const quads = Array(9);
+
+  for (let i = 0; i < 9; i++) {
+    rows[i] = Array(10).fill(false);
+    columns[i] = Array(10).fill(false);
+    quads[i] = Array(10).fill(false);
+  }
+
+  for (let row = 0; row < 9; row++) {
+    for (let col = 0; col < 9; col++) {
+      const val = board[row][col];
+
+      if (val === '.') {
+        continue;
+      }
+
+      // Make sure it's a valid single digit number.
+      // This check isn't necessary for LeetCode's tests, I think.
+      if (!/^[0-9]$/.test(val)) {
+        return false;
+      }
+
+      const num = parseInt(val);
+      if (rows[row][num]) {
+        return false;
+      } else {
+        rows[row][num] = true;
+      }
+
+      if (columns[col][num]) {
+        return false;
+      } else {
+        columns[col][num] = true;
+      }
+
+      const quadrant = getQuadrant(row, col);
+      if (quads[quadrant][num]) {
+        return false;
+      } else {
+        quads[quadrant][num] = true
+      }
+    }
+  }
+
+  return true;
+};
