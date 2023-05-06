@@ -238,9 +238,6 @@ export function threeSum(nums: number[]): number[][] {
  * different word or phrase, typically using all the original letters exactly
  * once.
  */
-// Time: O(n * m) where n is the number of strings
-//       and m is the length of each string.
-// Space: O(n)
 export function groupAnagrams(strs: string[]): string[][] {
   // Time: O(m), where m is the length of the string.
   // Space: O(26 * 3), store an array of len 26 and string of len 26 * 2.
