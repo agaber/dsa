@@ -210,7 +210,7 @@ export function groupAnagrams(strs: string[]): string[][] {
   }
 
   // Time: O(n) where n is the number of strings.
-  //        Worst case is that each anagram was unique.
+  //       Worst case is that each anagram was unique.
   // Space: O(1) - don't count the output in analysis.
   const result = [];
   for (const arr of map.values()) {
@@ -315,8 +315,7 @@ export function isValidSudoku(board: string[][]): boolean {
     return (row * 3) + col;
   }
 
-  // Can use a map too.
-  // It can also be a 2D array instead of an array of sets.
+  // Can use a map of sets or an array of sets too.
   // Bitmask is another option.
   const rows = Array(9);
   const columns = Array(9);
