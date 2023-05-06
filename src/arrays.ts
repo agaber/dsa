@@ -365,3 +365,86 @@ export function isValidSudoku(board: string[][]): boolean {
 
   return true;
 };
+
+/**
+ * Design an algorithm to encode a list of strings to a string. The encoded 
+ * string is then sent over the network and is decoded back to the original
+ * list of strings.
+ * 
+ * Machine 1 (sender) has the function:
+ * 
+ *   string encode(vector<string> strs) {
+ *     // ... your code
+ *     return encoded_string;
+ *   }
+ * 
+ * Machine 2 (receiver) has the function:
+ * 
+ *    vector<string> decode(string s) {
+ *       //... your code
+ *       return strs;
+ *     }
+ * 
+ * So Machine 1 does:
+ * 
+ *     string encoded_string = encode(strs);
+ * 
+ * and Machine 2 does:
+ * 
+ *     vector<string> strs2 = decode(encoded_string);
+ * 
+ * strs2 in Machine 2 should be the same as strs in Machine 1.
+ * 
+ * Implement the encode and decode methods.
+ * 
+ * You are not allowed to solve the problem using any serialize methods
+ * (such as eval).
+ * 
+ * Constraints:
+ * - 1 <= strs.length <= 200
+ * - 0 <= strs[i].length <= 200
+ * - strs[i] contains any possible characters out of 256 valid ASCII characters.
+ * 
+ * https://leetcode.com/problems/encode-and-decode-strings/
+ */
+export class Codec {
+  private readonly DELIMITER = '🤡';
+
+  /** Encodes a list of strings to a single string. */
+  encode(strs: string[]): string {
+    return strs.map(s => s.replace(/,/g, this.DELIMITER)).join(',');
+  }
+
+  /** Decodes a single string to a list of strings. */
+  decode(s: string): string[] {
+    const re = new RegExp(this.DELIMITER, 'g');
+    return s.split(',').map(s => s.replace(re, ','));
+  }
+};
+
+/**
+ * Given an unsorted array of integers nums, return the length of the longest
+ * consecutive elements sequence.
+ * 
+ * You must write an algorithm that runs in O(n) time.
+ * 
+ * https://leetcode.com/problems/longest-consecutive-sequence
+ */
+export function longestConsecutive(nums: number[]): number {
+  const set = new Set<number>(nums);
+  let result = 0;
+  for (const num of nums) {
+    let curr = num;
+    if (set.has(curr - 1)) {
+      continue;
+    }
+    let localMax = 1;
+    while (set.has(curr + 1)) {
+      set.delete(curr);
+      localMax++;
+      curr++;
+    }
+    result = Math.max(localMax, result);
+  }
+  return result;
+};

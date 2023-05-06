@@ -133,3 +133,54 @@ describe('Valid Sudoku', () => {
     expect(arrays.isValidSudoku(board)).toEqual(true);
   });
 });
+
+describe('Encode strings', () => {
+  it('should encode and decode strings', () => {
+    const original = ['Hello', 'World'];
+    const encoder = new arrays.Codec();
+    const encoded = encoder.encode(original);
+
+    const decoder = new arrays.Codec();
+    const decoded = decoder.decode(encoded);
+
+    expect(decoded).toEqual(original);
+  });
+
+  // This doesn't work in Java.
+  // Some other languages need to wrap strings in an escape char.
+  it('should encode and decode empty strings/arrays', () => {
+    const original = [''];
+    const encoder = new arrays.Codec();
+    const encoded = encoder.encode(original);
+
+    const decoder = new arrays.Codec();
+    const decoded = decoder.decode(encoded);
+
+    expect(decoded).toEqual(original);
+  });
+
+  it('should encode/decode empty strings with delimeters in it', () => {
+    const original = ['To be, or', 'not to be, that', 'is the question'];
+    const encoder = new arrays.Codec();
+    const encoded = encoder.encode(original);
+
+    const decoder = new arrays.Codec();
+    const decoded = decoder.decode(encoded);
+
+    expect(decoded).toEqual(original);
+  });
+});
+
+describe('Longest Consecutive Sequence', () => {
+  it('should pass case 1', () => {
+    expect(arrays.longestConsecutive([100, 4, 200, 1, 3, 2])).toEqual(4);
+  });
+
+  it('should pass case 2', () => {
+    expect(arrays.longestConsecutive([0, 3, 7, 2, 5, 8, 4, 6, 0, 1])).toEqual(9);
+  });
+
+  it('should pass case 3', () => {
+    expect(arrays.longestConsecutive([1, 0, -1])).toEqual(3);
+  });
+});
