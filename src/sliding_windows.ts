@@ -26,6 +26,7 @@ export function maxProfit(prices: number[]): number {
   return maxp;
 };
 
+
 /**
  * Longest Substring Without Repeating Characters
  * 
@@ -51,6 +52,7 @@ export function lengthOfLongestSubstring(s: string): number {
   }
   return max;
 };
+
 
 /**
  * Longest Repeating Character Replacement

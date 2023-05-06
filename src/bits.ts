@@ -1,3 +1,9 @@
+/**
+ * Bit manipulation exercises.
+ * Many of these questions are from the Blink 75 list on LeetCode.
+ */
+
+
 export function toBinaryString(number: number, base = 32, addSpaces = true): string {
   let binary: string = '';
   for (let i = 0; i < base; i++) {
@@ -9,6 +15,7 @@ export function toBinaryString(number: number, base = 32, addSpaces = true): str
   }
   return binary;
 }
+
 
 export function fromBinaryString(binary: string): number {
   // binary = binary.replace(/ /g, '');
@@ -25,6 +32,7 @@ export function fromBinaryString(binary: string): number {
   }
   return number;
 }
+
 
 /**
  * Write a function that takes the binary representation of an unsigned integer
@@ -50,6 +58,7 @@ export function hammingWeight(n: number): number {
   // }
   // return count;
 };
+
 
 /**
  * Given an integer n, return an array ans of length n + 1 such that for each i 

@@ -1,9 +1,8 @@
 /**
- * Arrays and Hashing questions. 
- * 
- * Many of these questions are from the Blink 75 list on LeetCode. These types of 
- * questions are very popular in interviews, especially phone screens.
+ * Arrays and Hashing questions.
+ * Many of these questions are from the Blink 75 list on LeetCode.
  */
+
 
 /**
  * Given an integer array nums, return true if any value appears at least twice 
@@ -58,6 +57,7 @@ export function isAnagram(s: string, t: string): boolean {
   return [...counter.values()].filter(count => count > 0).length === 0;
 };
 
+
 /**
  * Two Sum
  * 
@@ -85,6 +85,7 @@ export function twoSum(nums: number[], target: number): number[] {
   }
   return [];
 };
+
 
 /**
  * Two Sum II - Input Array Is Sorted
@@ -127,6 +128,7 @@ export function twoSumII(numbers: number[], target: number): number[] {
   return [];
 };
 
+
 /**
   * Given an array A of integers and a target value. Find out how many
   * pairs(A[i], A[j]) sum up to the value, where i is less than j.
@@ -156,6 +158,7 @@ export function countNumPairs(numbers: number[], target: number): number {
   return result;
 };
 
+
 /** Same as countNumPairs except actually return the pairs. */
 export function findNumPairs(numbers: number[], target: number): number[][] {
   let result: number[][] = [];
@@ -171,6 +174,7 @@ export function findNumPairs(numbers: number[], target: number): number[][] {
   }
   return result;
 };
+
 
 /**
  * Given an array of strings strs, group the anagrams together. You can return 
@@ -219,6 +223,7 @@ export function groupAnagrams(strs: string[]): string[][] {
   return result;
 };
 
+
 /**
  * Top K Frequent Elements
  * 
@@ -247,6 +252,7 @@ export function topKFrequent(nums: number[], k: number): number[] {
   }
   return answer;
 };
+
 
 /**
  * Product of Array Except Self
@@ -292,6 +298,7 @@ export function productExceptSelf(nums: number[]): number[] {
   }
   return answer;
 };
+
 
 /**
  * Determine if a 9 x 9 Sudoku board is valid. Only the filled cells need to be 
@@ -366,6 +373,7 @@ export function isValidSudoku(board: string[][]): boolean {
   return true;
 };
 
+
 /**
  * Design an algorithm to encode a list of strings to a string. The encoded 
  * string is then sent over the network and is decoded back to the original
@@ -422,6 +430,7 @@ export class Codec {
   }
 };
 
+
 /**
  * Given an unsorted array of integers nums, return the length of the longest
  * consecutive elements sequence.
@@ -432,7 +441,7 @@ export class Codec {
  */
 export function longestConsecutive(nums: number[]): number {
   const set = new Set<number>(nums);
-  let result = 0;
+  let max = 0;
   for (const num of nums) {
     let curr = num;
     if (set.has(curr - 1)) {
@@ -444,7 +453,7 @@ export function longestConsecutive(nums: number[]): number {
       localMax++;
       curr++;
     }
-    result = Math.max(localMax, result);
+    max = Math.max(localMax, max);
   }
-  return result;
+  return max;
 };
