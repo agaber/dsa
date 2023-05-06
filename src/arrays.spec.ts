@@ -9,7 +9,7 @@ describe('Contains Duplicates', () => {
   });
 });
 
-describe('anagrams', () => {
+describe('Anagrams', () => {
   it('should determine if strings are anagrams', () => {
     expect(arrays.isAnagram('anagram', 'nagaram')).toEqual(true);
     expect(arrays.isAnagram('rat', 'car')).toEqual(false);
@@ -182,5 +182,39 @@ describe('Longest Consecutive Sequence', () => {
 
   it('should pass case 3', () => {
     expect(arrays.longestConsecutive([1, 0, -1])).toEqual(3);
+  });
+});
+
+describe('Valid Palindrome', () => {
+  it('should pass case 1', () => {
+    expect(arrays.isValidPalindrome('A man, a plan, a canal: Panama'))
+      .toEqual(true);
+  });
+
+  it('should pass case 2', () => {
+    expect(arrays.isValidPalindrome('race a car')).toEqual(false);
+  });
+
+  it('should pass case 3', () => {
+    expect(arrays.isValidPalindrome(' ')).toEqual(true);
+  });
+});
+
+describe('3Sum', () => {
+  it('should pass case 1', () => {
+    expect(arrays.threeSum([-1, 0, 1, 2, -1, -4]))
+      .toEqual([[-1, -1, 2], [-1, 0, 1]]);
+  });
+
+  it('should pass case 2', () => {
+    expect(arrays.threeSum([0, 1, 1])).toEqual([]);
+  });
+
+  it('should pass case 3', () => {
+    expect(arrays.threeSum([0, 0, 0])).toEqual([[0, 0, 0]]);
+  });
+
+  it('should pass case 4', () => {
+    expect(arrays.threeSum([0, 0, 0, 0])).toEqual([[0, 0, 0]]);
   });
 });

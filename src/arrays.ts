@@ -1,6 +1,9 @@
 /**
  * Arrays and Hashing questions.
  * Many of these questions are from the Blink 75 list on LeetCode.
+ * 
+ * Note: This file also contains solutions that require a "two pointer" 
+ * algorithm.
  */
 
 
@@ -107,8 +110,8 @@ export function twoSum(nums: number[], target: number): number[] {
  * Google Interview YouTube video covers this. Note: this is really part of the
  * two pointer family of solutions.
  * 
- * Time complexity: O(n)
- * Space complexity: O(1)
+ * - Time complexity: O(n)
+ * - Space complexity: O(1)
  * 
  * https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/
  */
@@ -173,6 +176,57 @@ export function findNumPairs(numbers: number[], target: number): number[][] {
     counts.set(number, (counts.get(number) || 0) + 1);
   }
   return result;
+};
+
+
+/**
+ * 3Sum
+ * 
+ * Given an integer array nums, return all the triplets 
+ * [nums[i], nums[j], nums[k]] such that i != j, i != k, 
+ * and j != k, and nums[i] + nums[j] + nums[k] == 0.
+ * 
+ * Notice that the solution set must not contain duplicate triplets.
+ * 
+ * More two sum fun. This is also a two pointer solution. The twosum solution
+ * here is slightly different because the question also makes us worry about
+ * ignoring duplicate values. It can be done with a set but there's a more
+ * efficient solution (its tricky though).
+ * 
+ * https://leetcode.com/problems/3sum/
+ */
+export function threeSum(nums: number[]): number[][] {
+  function twoSum3(targetSum: number, startIndex: number): number[][] {
+    const twosums: number[][] = [];
+    let l = startIndex, r = nums.length - 1;
+    while (l < r) {
+      if (l > startIndex && nums[l] === nums[l - 1]) {
+        l++;
+        continue;
+      }
+      const sum = nums[l] + nums[r];
+      if (sum === targetSum) {
+        twosums.push([nums[l], nums[r]]);
+        l++;
+      } else if (sum < targetSum) {
+        l++;
+      } else {
+        r--;
+      }
+    }
+    return twosums;
+  }
+
+  nums.sort((x, y) => x - y);
+  const threesums: number[][] = [];
+  for (let i = 0; i < nums.length; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+    const twosums = twoSum3(-nums[i], i + 1);
+    twosums.forEach(twosum => threesums.push([...[nums[i]], ...twosum]));
+  }
+  return threesums;
 };
 
 
@@ -457,3 +511,37 @@ export function longestConsecutive(nums: number[]): number {
   }
   return max;
 };
+
+
+/**
+ * Valid Palindrome
+ * 
+ * A phrase is a palindrome if, after converting all uppercase letters into
+ * lowercase letters and removing all non-alphanumeric characters, it reads the
+ * same forward and backward. Alphanumeric characters include letters and
+ * numbers.
+ * 
+ * Given a string s, return true if it is a palindrome, or false otherwise.
+ * 
+ * https://leetcode.com/problems/valid-palindrome/
+ */
+export function isValidPalindrome(s: string): boolean {
+  function isLetter(s: string) {
+    return !!s.match(/[a-z0-9]/i);
+  }
+
+  let l = 0, r = s.length - 1;
+  while (l <= r) {
+    if (!isLetter(s[l])) {
+      l++;
+    } else if (!isLetter(s[r])) {
+      r--;
+    } else if (s[l].toLowerCase() !== s[r].toLowerCase()) {
+      return false;
+    } else {
+      l++;
+      r--;
+    }
+  }
+  return true;
+}
