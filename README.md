@@ -37,6 +37,7 @@ These commands are configured through the package.json file.
     $ npm install --save-dev ts-node
     $ npm install --save-dev @types/node
     $ npm install --save-dev jasmine
+    $ npm install --save lodash
     ```
 
 1. You might have to do something else to set up Jasmine, like `npx init jasmine`. 

@@ -288,6 +288,9 @@ enum VisitState {
   VISITING = 2,
 }
 
+// Time Complexity: O(E+V^2) where E is the number of dependencies, V is the 
+// number of courses and d is the maximum length of acyclic paths in the graph.
+// Space Complexity: O(E + V)
 export class CourseScheduleRecurisve implements CourseSchedule {
   canFinish(numCourses: number, prerequisites: number[][]): boolean {
     // First, create vertices/nodes in the adjacency list. (Standard procedure)
