@@ -158,6 +158,31 @@ export function cloneGraph(node?: Node, visited = new Map<Node, Node>()): Node |
 };
 
 
+/**
+ * Pacific Atlantic Water Flow
+ * 
+ * It's better to just read the description from LeetCode directly:
+ * https://leetcode.com/problems/pacific-atlantic-water-flow
+ * 
+ * I often, (perhaps unwisely) create objects with these types of problems,
+ * specifically a Point or Coordinate object. The utility of such a thing is
+ * debatable so I did this solution without it. My stuff on LeetCode uses
+ * objects (in both Java and TypeScript). Both ways have their tradeoffs.
+ * 
+ * JavaScript/TypeScript will not allow you to use random objects in a Set or
+ * use them as keys in Maps (some documentation suggests otherwise but I haven't
+ * gotten it to work). Thus we need to represent a set of tuples as a map with
+ * string keys in either the object oriented or functional solution.
+ * 
+ * The algorithm: We explore all inward from the oceans and then merge the
+ * common cells. As with most of these graph algorithms, we can choose to do
+ * things recursively (DFS usually) or iteratively (either DFS or BFS). Sometimes
+ * the wrong choice can make things very complicated for you. Usually recursive
+ * is a better option though (I think).
+ * 
+ * - Time complexity: O(m * n)
+ * - Space complexity: O(m * n)
+ */
 export class PacificAtlanticWaterFlow {
   // Up, right, down, left.
   private static readonly DELTAS: [number, number][]
@@ -224,5 +249,174 @@ export class PacificAtlanticWaterFlow {
 
   private toString(point: [number, number]): string {
     return `${point[0]},${point[1]}`;
+  }
+}
+
+/**
+ * Course Schedule
+ * 
+ * There are a total of numCourses courses you have to take, labeled from 0 to 
+ * numCourses - 1. You are given an array prerequisites where 
+ * prerequisites[i] = [ai, bi] indicates that you must take course bi first if 
+ * you want to take course ai.
+ * 
+ * For example, the pair [0, 1], indicates that to take course 0 you have to 
+ * first take course 1.
+ * 
+ * Return true if you can finish all courses. Otherwise, return false.
+ * 
+ * Part of the Blind 75.
+ * 
+ * This was/is incredibly tricky for me to wrap my mind around and I think it is
+ * also incredibly important to understand. DFS on graphs and trees is common,
+ * and it is probably one of the more confusing/trickier parts of
+ * Dynamic Programming too since those algorithms usually start with some DFS/BFS
+ * tree/graph analysis.
+ * 
+ * https://leetcode.com/problems/course-schedule
+ */
+interface CourseSchedule {
+  canFinish(numCourses: number, prerequisites: number[][]): boolean;
+}
+
+// Using an enum to describe these visited states instead
+// of using raw numbers (as was used in the suggested solutions)
+// so things are hopefully a bit more clear.
+enum VisitState {
+  UNTOUCHED = 0,
+  VISITED = 1,
+  VISITING = 2,
+}
+
+export class CourseScheduleRecurisve implements CourseSchedule {
+  canFinish(numCourses: number, prerequisites: number[][]): boolean {
+    // First, create vertices/nodes in the adjacency list. (Standard procedure)
+    const graph: number[][] = Array(numCourses);
+    for (let i = 0; i < numCourses; i++) {
+      graph[i] = [];
+    }
+
+    // Second, add the edges connecting the nodes/vertices. (Standard procedure)
+    for (const prereq of prerequisites) {
+      graph[prereq[0]].push(prereq[1]);
+    }
+
+    // Inspect all nodes for cycles.
+    const visited: VisitState[] = Array(numCourses).fill(VisitState.UNTOUCHED);
+    for (let i = 0; i < numCourses; i++) {
+      if (this.hasCycle(graph, i, visited)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private hasCycle(graph: number[][], course: number, visited: VisitState[]): boolean {
+    // We've already been here before. This wasn't from a recursive call.
+    if (visited[course] === VisitState.VISITED) {
+      return false;
+    }
+
+    // If we are seeing this again while still traversing a course path then
+    // we are in a cycle.
+    if (visited[course] === VisitState.VISITING) {
+      return true;
+    }
+
+    // We are now "visiting" or traversing paths for this course.
+    visited[course] = VisitState.VISITING;
+
+    for (const prereq of graph[course]) {
+      if (visited[prereq] !== VisitState.VISITED
+        && this.hasCycle(graph, prereq, visited)) {
+        return true;
+      }
+    }
+
+    // Clean up the visited state. After the recursion is done and if we haven't
+    // returned false already, then we can mark this as visited and never touch
+    // it again. LeetCode tests will time out if we keep revisiting nodes.
+    visited[course] = VisitState.VISITED;
+
+    return false;
+  }
+}
+
+// This doesn't work well and it is very hard to write IMO.
+// The solution will time out on leetcode because it doesn't correctly
+// annotate visited nodes.
+// There is another way of doing this: Topological sort.
+export class CourseScheduleIterative implements CourseSchedule {
+  canFinish(numCourses: number, prerequisites: number[][]): boolean {
+    // First, create vertices/nodes in the adjacency list. (Standard procedure)
+    const graph: number[][] = Array(numCourses);
+    for (let i = 0; i < numCourses; i++) {
+      graph[i] = [];
+    }
+
+    // Second, add the edges connecting the nodes/vertices. (Standard procedure)
+    for (const prereq of prerequisites) {
+      graph[prereq[0]].push(prereq[1]);
+    }
+
+    // Inspect all nodes for cycles.
+    const visited: VisitState[] = Array(numCourses).fill(VisitState.UNTOUCHED);
+    for (let i = 0; i < numCourses; i++) {
+      if (this.hasCycle(graph, i, visited)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  private hasCycle(graph: number[][], start: number, visited: VisitState[]): boolean {
+    type Tuple = {
+      course: number,
+      visited: Set<number>,
+    };
+
+    const stack: Tuple[] = [];
+    stack.push({ course: start, visited: new Set() });
+    while (stack.length) {
+      const curr = stack.pop()!;
+
+      // This path has already been traversed.
+      // Mark everything in this path up until this point as visited.
+      if (visited[curr.course] == VisitState.VISITED) {
+        for (const courseNumber of curr.visited) {
+          visited[courseNumber] = VisitState.VISITED;
+        }
+        return false;
+      }
+
+      // Cycle detected.
+      if (curr.visited.has(curr.course)) {
+        return true;
+      }
+
+      curr.visited.add(curr.course);
+
+      // End of the path.
+      // This isn't right. The recursive solution will backtrack all the way
+      // to a node that still has children. Meaning it will mark all the
+      // nodes on the stack visited except for paths that still need exploring.
+      // Failure to do this will cause timeouts on leetcode.
+      if (graph[curr.course].length === 0) {
+        visited[curr.course] = VisitState.VISITED;
+        return false;
+      }
+
+
+      for (let i = graph[curr.course].length - 1; i >= 0; i--) {
+        const prereq = graph[curr.course][i];
+        if (visited[prereq] !== VisitState.VISITED) {
+          stack.push({ course: prereq, visited: new Set([...curr.visited]) });
+        }
+      }
+    }
+
+    return false;
   }
 }
