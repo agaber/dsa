@@ -237,7 +237,12 @@ export function threeSum(nums: number[]): number[][] {
  * An Anagram is a word or phrase formed by rearranging the letters of a
  * different word or phrase, typically using all the original letters exactly
  * once.
+ * 
+ * Time complexity: O(n * m) where n is the number of strings
+ *     and m is the length of each string.
+ * Space complexity: O(n)
  */
+
 export function groupAnagrams(strs: string[]): string[][] {
   // Time: O(m), where m is the length of the string.
   // Space: O(26 * 3), store an array of len 26 and string of len 26 * 2.
@@ -248,7 +253,7 @@ export function groupAnagrams(strs: string[]): string[][] {
     // return [...str].sort().join('')
     const arr = Array(26).fill(0);
     for (const s of str) {
-      arr[(s.codePointAt(0)! - 'a'.codePointAt(0)!)] += 1
+      arr[(s.codePointAt(0)! - 'a'.codePointAt(0)!)] += 1;
     }
     return arr.join('#');
   }
@@ -483,10 +488,14 @@ export class Codec {
 
 
 /**
+ * Longest Consecutive Sequence
+ * 
  * Given an unsorted array of integers nums, return the length of the longest
  * consecutive elements sequence.
  * 
  * You must write an algorithm that runs in O(n) time.
+ * 
+ * An arrays/hashing question from the Blind 75.
  * 
  * https://leetcode.com/problems/longest-consecutive-sequence
  */
@@ -520,6 +529,10 @@ export function longestConsecutive(nums: number[]): number {
  * 
  * Given a string s, return true if it is a palindrome, or false otherwise.
  * 
+ * - A two pointer question from the Blind 75.
+ * - Time complexity: O(n)
+ * - Space complexity: O(n)
+ * 
  * https://leetcode.com/problems/valid-palindrome/
  */
 export function isValidPalindrome(s: string): boolean {
@@ -542,3 +555,40 @@ export function isValidPalindrome(s: string): boolean {
   }
   return true;
 }
+
+/**
+ * Container With Most Water
+ * 
+ * You are given an integer array height of length n. There are n vertical lines
+ * drawn such that the two endpoints of the ith line are (i, 0) and
+ * (i, height[i]).
+ * 
+ * Find two lines that together with the x-axis form a container, such that the
+ * container contains the most water.
+ * 
+ * Return the maximum amount of water a container can store.
+ * 
+ * Notice that you may not slant the container.
+ * 
+ * - A two pointer solution from the Blind 75.
+ * - Time complexity: O(n)
+ * - Space complexity: O(1)
+ * 
+ * https://leetcode.com/problems/container-with-most-water/
+ */
+export function maxArea(height: number[]): number {
+  let l = 0, r = height.length - 1;
+  let maxArea = 0;
+  while (l < r) {
+    const m = Math.min(height[l], height[r]);
+    const n = r - l;
+    const area = m * n;
+    maxArea = Math.max(maxArea, area);
+    if (height[l] < height[r]) {
+      l++;
+    } else {
+      r--;
+    }
+  }
+  return maxArea;
+};

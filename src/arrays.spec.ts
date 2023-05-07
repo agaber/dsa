@@ -218,3 +218,13 @@ describe('3Sum', () => {
     expect(arrays.threeSum([0, 0, 0, 0])).toEqual([[0, 0, 0]]);
   });
 });
+
+describe('Container With Most Water', () => {
+  it('should pass test case 1', () => {
+    expect(arrays.maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])).toEqual(49);
+  });
+
+  it('should pass test case 2', () => {
+    expect(arrays.maxArea([1, 1])).toEqual(1);
+  });
+});
