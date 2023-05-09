@@ -31,7 +31,7 @@ import { MaxHeap } from "datastructures-js";
  * https://leetcode.com/problems/last-stone-weight
  */
 export function lastStoneWeight(stones: number[]): number {
-  const heap = MaxHeap.heapify(stones);
+  const heap: MaxHeap<number> = MaxHeap.heapify(stones);
 
   while (heap.size() > 1) {
     const y = heap.pop();
