@@ -18,6 +18,16 @@ import { MaxHeap } from "datastructures-js";
  * Return the weight of the last remaining stone. If there are no stones left,
  * return 0.
  * 
+ * -- 
+ * 
+ * This is part of the "LeetCode 75" I suppose (not the Blind 75). BTW, there's
+ * way more than 75 questions in the LC75 I think.
+ * 
+ * This uses heap/priority queue libs from datasturctures-js. LeetCode uses a
+ * much older version of this lib and quite honestly I don't think it's a good
+ * idea to depend on this being available in an interview but it might be a cool
+ * lib in the real world.
+ * 
  * https://leetcode.com/problems/last-stone-weight
  */
 export function lastStoneWeight(stones: number[]): number {
@@ -26,7 +36,6 @@ export function lastStoneWeight(stones: number[]): number {
   while (heap.size() > 1) {
     const y = heap.pop();
     const x = heap.pop();
-    console.log(x, y);
     if (x !== y) {
       heap.push(y - x);
     }
