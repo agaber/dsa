@@ -1,0 +1,40 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  annotationProcessor 'org.projectlombok:lombok:1.18.26'
+  compileOnly 'org.projectlombok:lombok:1.18.26'
+  implementation 'com.google.guava:guava:31.1-jre'
+  implementation 'com.opencsv:opencsv:5.7.1'
+  implementation 'net.sourceforge.argparse4j:argparse4j:0.9.0'
+  testImplementation 'com.google.jimfs:jimfs:1.1'
+  testImplementation 'com.google.truth:truth:1.1.3'
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.9.1'
+
+}
+
+application {
+  mainClass = 'dev.agaber.dsa.ConsoleApp'
+}
+
+// Build a "fat jar" (single file containing all dependencies) by default.
+// $ gradle clean build -> binary will be in build/libs/http_monitor.jar
+jar {
+  manifest {
+   attributes('Main-Class': 'dev.agaber.dsa.ConsoleApp')
+  }
+  from {
+    configurations.runtimeClasspath.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
+  duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
+tasks.named('test') {
+  useJUnitPlatform()
+}
