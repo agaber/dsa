@@ -69,8 +69,7 @@ final class WordCountEngine {
         wordBuilder.setLength(0);
         if (!word.isBlank()) {
           order++;
-          var tuple = counter
-              .getOrDefault(word, Tuple.builder().word(word).order(order).build());
+          var tuple = counter.getOrDefault(word, new Tuple(word, order));
           tuple.count++;
           counter.put(word, tuple);
         }
@@ -85,11 +84,16 @@ final class WordCountEngine {
         .toArray(String[][]::new);
   }
 
-  @Builder
   @Data
   private static class Tuple {
-    public String word;
     public int count;
     public int order;
+    public String word;
+
+    public Tuple(String word, int order) {
+      this.count = 0;
+      this.order = order;
+      this.word = word;
+    }
   }
 }

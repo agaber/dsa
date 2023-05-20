@@ -1,7 +1,9 @@
 package dev.agaber.dsa;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
+import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toSet;
 
 import com.google.common.collect.ImmutableList;
 import lombok.Builder;
@@ -209,6 +211,95 @@ final class ArraysAndHashing {
       result[i] = pq.poll();
     }
     return result;
+  }
+
+  /**
+   * Product of array except self
+   *
+   * <p>Given an integer array nums, return an array answer such that answer[i] is equal to the
+   * product of all the elements of nums except nums[i].
+   *
+   * <p>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+   *
+   * <p>You must write an algorithm that runs in O(n) time and without using the division operation.
+   *
+   * <ul> Constraints:
+   *   <li>2 <= nums.length <= 105
+   *   <li>-30 <= nums[i] <= 30
+   *   <li>The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/product-of-array-except-self/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   *
+   * <p>Follow up: Can you solve the problem in O(1) extra space complexity?
+   * (The output array does not count as extra space for space complexity
+   * analysis.)
+   *
+   * <p>TODO: Do the O(1) memory solution.
+   */
+  public static int[] productExceptSelf(int[] nums) {
+    int[] prefix = new int[nums.length + 2];
+    prefix[0] = 1;
+    prefix[prefix.length - 1] = 1;
+
+    int[] postfix = new int[nums.length + 2];
+    postfix[0] = 1;
+    postfix[postfix.length - 1] = 1;
+
+    for (int i = 0; i < nums.length; i++) {
+      prefix[i + 1] = prefix[i] * nums[i];
+      postfix[postfix.length - i - 2] = postfix[postfix.length - i - 1] * nums[nums.length - i - 1];
+    }
+
+    for (int i = 0; i < nums.length; i++) {
+      nums[i] = prefix[i] * postfix[i + 2];
+    }
+
+    return nums;
+  }
+
+  /**
+   * Longest Consecutive Sequence
+   *
+   * <p>Given an unsorted array of integers nums, return the length of the
+   * longest consecutive elements sequence.
+   *
+   * <p>You must write an algorithm that runs in O(n) time.
+   *
+   * <ul> Constraints:
+   *   <li>0 <= nums.length <= 105
+   *   <li>-109 <= nums[i] <= 109
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/longest-consecutive-sequence/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   */
+  public static int longestConsecutive(int[] nums) {
+    var numset = Arrays.stream(nums).boxed().collect(toSet());
+    int max = 0;
+    for (int num : nums) {
+      if (numset.contains(num + 1) && !numset.contains(num - 1)) {
+        int localmax = 1;
+        while (numset.contains(num + 1)) {
+          numset.remove(num);
+          localmax++;
+          num++;
+        }
+        max = Math.max(max, localmax);
+      }
+    }
+    return max;
   }
 
   private ArraysAndHashing() {}

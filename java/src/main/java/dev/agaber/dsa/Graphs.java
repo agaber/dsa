@@ -1,8 +1,17 @@
 package dev.agaber.dsa;
 
+import static com.google.common.collect.ImmutableList.toImmutableList;
+import static java.util.function.Predicate.not;
+
+import lombok.Builder;
+import lombok.Value;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class Graphs {
   /**
-   * 200. Number of Islands
+   * Number of Islands
    *
    * <p>Given an m x n 2D binary grid grid which represents a map of '1's
    * (land) and '0's (water), return the number of islands.
@@ -182,5 +191,170 @@ public class Graphs {
       int n = board[0].length;
       return x >= 0 && x < m && y >= 0 && y < n;
     }
+  }
+
+  /**
+   * Pacific Atlantic Water Flow
+   *
+   * <p>There is an m x n rectangular island that borders both the Pacific Ocean
+   * and Atlantic Ocean. The Pacific Ocean touches the island's left and top
+   * edges, and the Atlantic Ocean touches the island's right and bottom edges.
+   *
+   * <p>The island is partitioned into a grid of square cells. You are given an
+   * m x n integer matrix heights where heights[r][c] represents the height
+   * above sea level of the cell at coordinate (r, c).
+   *
+   * <p>The island receives a lot of rain, and the rain water can flow to
+   * neighboring cells directly north, south, east, and west if the neighboring
+   * cell's height is less than or equal to the current cell's height. Water can
+   * flow from any cell adjacent to an ocean into the ocean.
+   *
+   * <p>Return a 2D list of grid coordinates result where result[i] = [ri, ci]
+   * denotes that rain water can flow from cell (ri, ci) to both the Pacific and
+   * Atlantic oceans.
+   *
+   * <ul> Constraints:
+   *   <li>m == heights.length
+   *   <li>n == heights[r].length
+   *   <li>1 <= m, n <= 200
+   *   <li>0 <= heights[r][c] <= 105
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/game-of-life/
+   *   <li>Time complexity: O(m * n), I think
+   *   <li>Space complexity: O(m * n)
+   * </ul>
+   *
+   * Discussion: The trick here (and I didn't figure this out on my own
+   * originally was to go backwards -- start at the oceans and explore inland.
+   * Do that for both oceans and then return the points they have in common.
+   * I'm not aware of any optimization that allows us to avoid exploring the
+   * same point multiple times.
+   */
+  public static final class PacificAtanticWaterFlow {
+    private static int[][] DIRECTIONS = new int[][] {
+        {-1,  0}, // Up
+        { 0,  1}, // Right
+        { 1,  0}, // Down
+        { 0, -1}, // Left
+    };
+
+    private int[][] grid;
+    private int m;
+    private int n;
+
+    public List<List<Integer>> pacificAtlantic(int[][] heights) {
+      this.grid = heights;
+      this.m = heights.length;
+      this.n = heights[0].length;
+
+      var atlanticPoints = new HashSet<Point>();
+      var pacificPoints = new HashSet<Point>();
+
+      // Explore top and bottom rows.
+      for (int col = 0; col < n; col++) {
+        explore(0, col, pacificPoints);
+        explore(m - 1, col, atlanticPoints);
+      }
+
+      // Explore left and right columns.
+      for (int row = 0; row < n; row++) {
+        explore(row, 0, pacificPoints);
+        explore(row, n - 1, atlanticPoints);
+      }
+
+      // Return union of points.
+      pacificPoints.retainAll(atlanticPoints);
+      return pacificPoints.stream().map(Point::toList).collect(toImmutableList());
+    }
+
+    private void explore(int r, int c, Set<Point> visited) {
+      Point p = new Point(r, c);
+      visited.add(p);
+      for (int[] delta : DIRECTIONS) {
+        var next = new Point(p.getX() + delta[0], p.getY() + delta[1]);
+        if (isInBounds(next) && isValidMove(p, next) && !visited.contains(next)) {
+          explore(next.getX(), next.getY(), visited);
+        }
+      }
+    }
+
+    private boolean isInBounds(Point p) {
+      return p.getX() >= 0 && p.getX() < m && p.getY() >= 0 && p.getY() < n;
+    }
+
+    private boolean isValidMove(Point current, Point next) {
+      return valueAt(current) <= valueAt(next);
+    }
+
+    private int valueAt(Point p) {
+      return grid[p.getX()][p.getY()];
+    }
+
+    @Value
+    private static final class Point {
+      private final int x;
+      private final int y;
+
+      public Point(int x, int y) {
+        this.x = x;
+        this.y = y;
+      }
+
+      public List<Integer> toList() {
+        return Arrays.asList(x, y);
+      }
+    }
+  }
+
+  /*
+   * Identify the Origin-to-Final Destination itinerary of the traveler from
+   * the list of tickets
+   *
+   * <p>Example:
+   *
+   * <pre>
+   * Input:
+   *   "New York" -> "Dallas"
+   *   "Chicago" -> "Houston"
+   *   "Las vegas" -> "New York"
+   *   "Houston" -> "Las Vegas"
+   * Output:
+   * Chicago->Houston, Houston->Las Vegas, Las Vegas->New York, New York->Dallas
+   * </pre>
+   *
+   * <p>It may be assumed that the input list of tickets is not cyclic and there
+   * is one ticket from every city except the final destination.
+   */
+  public static String printItinerary(String[][] tickets) {
+    var graph = new HashMap<String, String>();
+    for (String[] ticket : tickets) {
+      graph.put(ticket[0], ticket[1]);
+      if (!graph.containsKey(ticket[1])) {
+        graph.put(ticket[1], "");
+      }
+    }
+
+    Set<String> destinations = new HashSet<>(graph.values());
+    String origin =
+        graph.keySet().stream().filter(not(destinations::contains)).findFirst().orElseThrow();
+
+    StringBuilder result = new StringBuilder();
+    while (!origin.isEmpty()) {
+      String destination = graph.get(origin);
+      if (!destination.isEmpty()) {
+        result.append(origin).append("->").append(destination).append(", ");
+      }
+      origin = destination;
+    }
+
+    if (result.charAt(result.length() - 2) == ',') {
+      result.delete(result.length() - 2, result.length());
+    }
+
+    return result.toString();
   }
 }
