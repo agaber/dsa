@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.agaber.dsa.ArraysKtTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-05-22T12:52:13" hostname="grannysmith" time="0.027">
+  <properties/>
+  <testcase name="testContainsDuplicate()" classname="dev.agaber.dsa.ArraysKtTest" time="0.027"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

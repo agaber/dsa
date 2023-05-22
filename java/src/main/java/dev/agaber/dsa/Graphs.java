@@ -229,7 +229,7 @@ public class Graphs {
    * </ul>
    *
    * Discussion: The trick here (and I didn't figure this out on my own
-   * originally was to go backwards -- start at the oceans and explore inland.
+   * originally) was to go backwards -- start at the oceans and explore inland.
    * Do that for both oceans and then return the points they have in common.
    * I'm not aware of any optimization that allows us to avoid exploring the
    * same point multiple times.
@@ -310,7 +310,7 @@ public class Graphs {
     }
   }
 
-  /*
+  /**
    * Identify the Origin-to-Final Destination itinerary of the traveler from
    * the list of tickets
    *
