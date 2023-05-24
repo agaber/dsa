@@ -1,5 +1,6 @@
 package dev.agaber.dsa;
 
+import static dev.agaber.dsa.ArraysAndHashing.Codec;
 import static dev.agaber.dsa.ArraysAndHashing.containsDuplicate;
 import static dev.agaber.dsa.ArraysAndHashing.groupAnagrams;
 import static dev.agaber.dsa.ArraysAndHashing.isAnagram;
@@ -63,5 +64,19 @@ public final class ArraysAndHashingTest {
   public void testLongestConsecutive() throws Exception {
     assertThat(longestConsecutive(new int[]{100, 4, 200, 1, 3, 2})).isEqualTo(4);
     assertThat(longestConsecutive(new int[]{0, 3, 7, 2, 5, 8, 4, 6, 0, 1})).isEqualTo(9);
+  }
+
+  @Test
+  public void codecTestCase1() throws Exception {
+    Codec codec = new Codec();
+    assertThat(codec.decode(codec.encode(Arrays.asList("Hello", "World"))))
+        .containsExactly("Hello", "World");
+  }
+
+  @Test
+  public void codecTestCase2() throws Exception {
+    Codec codec = new Codec();
+    assertThat(codec.decode(codec.encode(List.of(""))))
+        .containsExactly("");
   }
 }

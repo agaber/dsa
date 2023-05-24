@@ -1,6 +1,6 @@
 package dev.agaber.dsa
 
-import java.util.PriorityQueue
+import java.util.*
 
 /**
  * Contains Duplicate
@@ -53,7 +53,7 @@ fun containsDuplicate(nums: IntArray): Boolean {
  */
 fun isAnagram(s: String, t: String): Boolean {
   if (s.length != t.length) {
-    return false;
+    return false
   }
   val counter: MutableMap<Char, Int> = mutableMapOf()
   for (i in s.indices) {
@@ -133,18 +133,18 @@ fun groupAnagrams(strs: Array<String>): List<List<String>> {
   fun hash(str: String): String {
     val arr = IntArray(26)
     for (c in str) {
-      arr[c - 'a'] += 1;
+      arr[c - 'a'] += 1
     }
-    return arr.map{ c -> "#$c#" }.joinToString("")
+    return arr.map { c -> "#$c#" }.joinToString("")
   }
 
-  val anagrams: MutableMap<String, MutableList<String>> = mutableMapOf();
+  val anagrams: MutableMap<String, MutableList<String>> = mutableMapOf()
   for (str in strs) {
     val key = hash(str)
     anagrams.computeIfAbsent(key) { mutableListOf() }.add(str)
   }
   val result: MutableList<List<String>> = mutableListOf()
-  anagrams.values.forEach{ lst -> result.add(lst) }
+  anagrams.values.forEach { lst -> result.add(lst) }
   return result.toList()
 }
 
@@ -173,8 +173,7 @@ fun topKFrequent(nums: IntArray, k: Int): IntArray {
     counter[nums[i]] = counter.getOrDefault(nums[i], 0) + 1
   }
 
-  val comparator: Comparator<IntArray> = compareBy { it[1] }
-  val pq: PriorityQueue<IntArray> = PriorityQueue<IntArray>(comparator)
+  val pq: PriorityQueue<IntArray> = PriorityQueue<IntArray>(compareBy { it[1] })
   for (e in counter.entries) {
     pq.add(intArrayOf(e.key, e.value))
     if (pq.size > k) {
@@ -184,7 +183,7 @@ fun topKFrequent(nums: IntArray, k: Int): IntArray {
 
   val size = if (k > pq.size) pq.size else k
   val answer = IntArray(size)
-  for (i in (size - 1).downTo(0)) {
+  for (i in (size - 1) downTo 0) {
     answer[i] = pq.poll()[0]
   }
   return answer

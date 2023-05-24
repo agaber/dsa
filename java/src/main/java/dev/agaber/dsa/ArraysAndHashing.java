@@ -1,16 +1,18 @@
 package dev.agaber.dsa;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static com.google.common.collect.ImmutableSet.toImmutableSet;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toSet;
 
-import com.google.common.collect.ImmutableList;
-import lombok.Builder;
-import lombok.Data;
+import com.google.common.base.Splitter;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.PriorityQueue;
 
 final class ArraysAndHashing {
   /**
@@ -302,5 +304,79 @@ final class ArraysAndHashing {
     return max;
   }
 
-  private ArraysAndHashing() {}
+  /**
+   * Encode and Decode Strings
+   *
+   * <p>Design an algorithm to encode a list of strings to a string. The encoded
+   * string is then sent over the network and is decoded back to the original
+   * list of strings.
+   *
+   * <pre>
+   * Machine 1 (sender) has the function:
+   *
+   * string encode(vector<string> strs) {
+   *   // ... your code
+   *   return encoded_string;
+   * }
+   *
+   * Machine 2 (receiver) has the function:
+   *
+   * vector<string> decode(string s) {
+   *   //... your code
+   *   return strs;
+   * }
+   *
+   * So Machine 1 does:
+   *
+   * string encoded_string = encode(strs);
+   * and Machine 2 does:
+   *
+   * vector<string> strs2 = decode(encoded_string);
+   * strs2 in Machine 2 should be the same as strs in Machine 1.
+   * </pre>
+   *
+   * <p>Implement the encode and decode methods.
+   *
+   * <p>You are not allowed to solve the problem using any serialize methods
+   * (such as eval).
+   *
+   * <ul> Constraints:
+   *   <li>1 <= strs.length <= 200
+   *   <li>0 <= strs[i].length <= 200
+   *   <li>strs[i] contains any possible characters out of 256 valid ASCII characters.
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/encode-and-decode-strings/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   *
+   * <p>I'm not really sure why this is a medium level question.
+   */
+  public static final class Codec {
+    // Outside the 256 limit that they say their input will contain.
+    private static final String DIVIDER = "😂";
+    private static final String WRAPPER = "🙃";
+
+    // Encodes a list of strings to a single string.
+    public String encode(List<String> strs) {
+      return strs.stream()
+          .map(s -> WRAPPER + s + WRAPPER)
+          .reduce((s1, s2) -> s1 + DIVIDER + s2)
+          .orElse("");
+    }
+
+    // Decodes a single string to a list of strings.
+    public List<String> decode(String s) {
+      return Splitter.on(DIVIDER).omitEmptyStrings().splitToList(s).stream()
+          .map(str -> str.replace(WRAPPER, ""))
+          .collect(toImmutableList());
+    }
+  }
+
+  private ArraysAndHashing() {
+  }
 }

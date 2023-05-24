@@ -1,6 +1,9 @@
 package dev.agaber.dsa;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 final class TwoPointers {
   /**
@@ -33,7 +36,7 @@ final class TwoPointers {
     while (l < r) {
       int sum = numbers[l] + numbers[r];
       if (sum == target) {
-        return new int[] {l + 1, r + 1};
+        return new int[]{l + 1, r + 1};
       } else if (sum > target) {
         r--;
       } else {
@@ -150,5 +153,52 @@ final class TwoPointers {
     return true;
   }
 
-  private TwoPointers() {}
+  /**
+   * Container With Most Water
+   *
+   * <p>You are given an integer array height of length n. There are n vertical
+   * lines drawn such that the two endpoints of the ith line are (i, 0) and
+   * (i, height[i]).
+   *
+   * <p>Find two lines that together with the x-axis form a container, such that
+   * the container contains the most water.
+   *
+   * <p>Return the maximum amount of water a container can store.
+   *
+   * <p>Notice that you may not slant the container.
+   *
+   *
+   * <ul> Constraints:
+   *   <li>n == height.length
+   *   <li>2 <= n <= 105
+   *   <li>0 <= height[i] <= 104
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/container-with-most-water/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(1)
+   * </ul>
+   */
+  public static int maxArea(int[] height) {
+    int l = 0;
+    int r = height.length - 1;
+    int max = 0;
+    while (l < r) {
+      int h = Math.min(height[l], height[r]);
+      int w = r - l;
+      max = Math.max(h * w, max);
+      if (height[l] < height[r]) {
+        l++;
+      } else {
+        r--;
+      }
+    }
+    return max;
+  }
+
+  private TwoPointers() {
+  }
 }
