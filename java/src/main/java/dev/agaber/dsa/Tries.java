@@ -2,9 +2,7 @@ package dev.agaber.dsa;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
-import com.google.common.base.Preconditions;
 import lombok.Data;
-import lombok.Value;
 
 import java.util.Optional;
 
@@ -18,7 +16,7 @@ public final class Tries {
    * spellchecker.
    *
    * <p>Implement the Trie class:
-   * 
+   *
    * <ul>
    *   <li>Trie() Initializes the trie object.
    *   <li>void insert(String word) Inserts the string word into the trie.

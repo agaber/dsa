@@ -3,7 +3,6 @@ package dev.agaber.dsa;
 import static dev.agaber.dsa.Tries.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import dev.agaber.dsa.Tries.*;
 import org.junit.jupiter.api.Test;
 
 public final class TriesTest {
