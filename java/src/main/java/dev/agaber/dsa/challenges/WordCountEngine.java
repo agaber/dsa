@@ -1,14 +1,18 @@
 package dev.agaber.dsa.challenges;
 
-import lombok.Builder;
+import static java.util.Comparator.comparing;
+
 import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Word Count Engine
  *
- * <p>Implement a document scanning function wordCountEngine, which receives a
+ * <p>
+ * Implement a document scanning function wordCountEngine, which receives a
  * string document and returns a list of all unique words in it and their
  * number of occurrences, sorted by the number of occurrences in descending
  * order. If two or more words have the same count, they should be sorted
@@ -17,13 +21,16 @@ import java.util.*;
  * so for instance, the words “Perfect” and “perfect” should be considered
  * the same word.
  *
- * <p>The engine should strip out punctuation (even in the middle of a word)
+ * <p>
+ * The engine should strip out punctuation (even in the middle of a word)
  * and use whitespaces to separate words.
  *
- * <p>Analyze the time and space complexities of your solution. Try to
+ * <p>
+ * Analyze the time and space complexities of your solution. Try to
  * optimize for time while keeping a polynomial space complexity.
  *
- * <p>Examples:
+ * <p>
+ * Examples:
  *
  * <pre>
  * input:  document = "Practice makes perfect. you'll only
@@ -34,14 +41,16 @@ import java.util.*;
  *           ["get", "1"], ["by", "1"], ["just", "1"] ]
  * </pre>
  *
- * <p> Important: please convert the occurrence integers in the output list to
+ * <p>
+ * Important: please convert the occurrence integers in the output list to
  * strings (e.g. "3" instead of 3). We ask this because in compiled languages
  * such as C#, Java, C++, C etc., it’s not straightforward to create mixed-type
  * arrays (as it is, for instance, in scripted languages like JavaScript,
  * Python, Ruby etc.). The expected output will simply be an array of string
  * arrays.
  *
- * <p>Constraints:
+ * <p>
+ * Constraints:
  *
  * <ul>
  * <li>[time limit] 5000ms
@@ -49,7 +58,9 @@ import java.util.*;
  * <li>[output] array.array.string
  * </ul>
  *
- * <p>See https://www.pramp.com/challenge/W5EJq2Jld3t2ny9jyZXG</p>
+ * <p>
+ * See https://www.pramp.com/challenge/W5EJq2Jld3t2ny9jyZXG
+ * </p>
  */
 final class WordCountEngine {
   public static String[][] count(String document) {
@@ -77,10 +88,10 @@ final class WordCountEngine {
     }
 
     List<Tuple> tuples = new ArrayList<>(counter.values());
-    tuples.sort(Comparator.comparing(Tuple::getCount).reversed().thenComparing(Tuple::getOrder));
+    tuples.sort(comparing(Tuple::getCount).reversed().thenComparing(Tuple::getOrder));
 
     return tuples.stream()
-        .map(t -> new String[]{t.getWord(), String.valueOf(t.getCount())})
+        .map(t -> new String[] { t.getWord(), String.valueOf(t.getCount()) })
         .toArray(String[][]::new);
   }
 
