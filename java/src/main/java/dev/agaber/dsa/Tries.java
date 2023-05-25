@@ -1,9 +1,9 @@
 package dev.agaber.dsa;
 
-import static com.google.common.base.Preconditions.checkArgument;
-
 import lombok.Data;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public final class Tries {
@@ -39,7 +39,7 @@ public final class Tries {
    *   <li>Level: Medium
    *   <li>https://leetcode.com/problems/implement-trie-prefix-tree/
    *   <li>Time complexity: O(n log n)
-   *   <li>Space complexity: O(m) where mmm is the number of distinct characters
+   *   <li>Space complexity: O(m) where m is the number of distinct characters
    *       in the string.
    * </ul>
    */
@@ -59,13 +59,11 @@ public final class Tries {
     }
 
     public boolean search(String word) {
-      var node = find(word);
-      return node.map(n -> n.isEnd()).orElse(false);
+      return find(word).map(TrieNode::isEnd).orElse(false);
     }
 
     public boolean startsWith(String prefix) {
-      var node = find(prefix);
-      return node.isPresent();
+      return find(prefix).isPresent();
     }
 
     private Optional<TrieNode> find(String wordOrPrefix) {
@@ -83,29 +81,20 @@ public final class Tries {
 
   @Data
   private static class TrieNode {
-    private final TrieNode[] neighbors;
+    private final Map<Character, TrieNode> neighbors;
     private boolean isEnd;
 
     public TrieNode() {
-      this.neighbors = new TrieNode[26];
+      this.neighbors = new HashMap<>(26);
       this.isEnd = false;
     }
 
     public TrieNode add(char letter) {
-      checkArgument(Character.isLetter(letter), "Only supports English letters");
-      checkArgument(Character.isLowerCase(letter), "Only supports lowercase letters");
-      var node = neighbors[letter - 'a'];
-      if (node == null) {
-        node = new TrieNode();
-        neighbors[letter - 'a'] = node;
-      }
-      return node;
+      return neighbors.computeIfAbsent(letter, l -> new TrieNode());
     }
 
     public Optional<TrieNode> get(char letter) {
-      checkArgument(Character.isLetter(letter), "Only supports English letters");
-      checkArgument(Character.isLowerCase(letter), "Only supports lowercase letters");
-      return Optional.ofNullable(neighbors[letter - 'a']);
+      return Optional.ofNullable(neighbors.get(letter));
     }
   }
 
