@@ -42,6 +42,11 @@ public final class LinkedLists {
     }
 
     @Override
+    public int hashCode() {
+      return toList().hashCode();
+    }
+
+    @Override
     public String toString() {
       return toList().toString().replace(" ", "");
     }
@@ -116,12 +121,58 @@ public final class LinkedLists {
     return reverseListR(head, null);
   }
 
-  public static ListNode reverseListR(ListNode head, ListNode prev) {
+  private static ListNode reverseListR(ListNode head, ListNode prev) {
     if (head == null) {
       return null;
     }
     var next = head.next;
     head.next = prev;
     return next == null ? head : reverseListR(next, head);
+  }
+
+  /**
+   * Merge Two Sorted Lists
+   *
+   * <p>You are given the heads of two sorted linked lists list1 and list2.
+   *
+   * <p>Merge the two lists into one sorted list. The list should be made by
+   * splicing together the nodes of the first two lists.
+   *
+   * <p>Return the head of the merged linked list.
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in both lists is in the range [0, 50].
+   *   <li>-100 <= Node.val <= 100
+   *   <li>Both list1 and list2 are sorted in non-decreasing order.
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Easy
+   *   <li>https://leetcode.com/problems/merge-two-sorted-lists/
+   *   <li>Time complexity: O(n + m)
+   *   <li>Space complexity: O(1)
+   * </ul>
+   *
+   * <p>Discussion: Like most things with linked lists, trees and graphs, this
+   * can also be done recursively and I think the space complexity would be
+   * O(n + m).
+   */
+  public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    var prehead = new ListNode(0);
+    var tail = prehead;
+    while (list1 != null && list2 != null) {
+      if (list1.val <= list2.val) {
+        tail.next = list1;
+        tail = list1;
+        list1 = list1.next;
+      } else {
+        tail.next = list2;
+        tail = list2;
+        list2 = list2.next;
+      }
+    }
+    tail.next = list1 != null ? list1 : list2;
+    return prehead.next;
   }
 }

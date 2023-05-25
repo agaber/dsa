@@ -41,7 +41,7 @@ public class LinkedListsTest {
     assertThat(reverseListI(ListNode.fromString("[1,2]")))
         .isEqualTo(ListNode.fromString("[2,1]"));
     assertThat(reverseListI(ListNode.fromString("[]")))
-        .isEqualTo(ListNode.fromString("[]"));
+        .isNull();
   }
 
   @Test
@@ -51,6 +51,16 @@ public class LinkedListsTest {
     assertThat(reverseListR(ListNode.fromString("[1,2]")))
         .isEqualTo(ListNode.fromString("[2,1]"));
     assertThat(reverseListR(ListNode.fromString("[]")))
+        .isNull();
+  }
+
+  @Test
+  public void testMergeTwoLists() throws Exception {
+    assertThat(mergeTwoLists(ListNode.fromString("[1,2,4]"), ListNode.fromString("[1,3,4]")))
+        .isEqualTo(ListNode.fromString("[1,1,2,3,4,4]"));
+    assertThat(mergeTwoLists(ListNode.fromString("[]"), ListNode.fromString("[]")))
         .isEqualTo(ListNode.fromString("[]"));
+    assertThat(mergeTwoLists(ListNode.fromString("[]"), ListNode.fromString("[0]")))
+        .isEqualTo(ListNode.fromString("[0]"));
   }
 }
