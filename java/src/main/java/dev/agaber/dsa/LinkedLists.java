@@ -175,4 +175,80 @@ public final class LinkedLists {
     tail.next = list1 != null ? list1 : list2;
     return prehead.next;
   }
+
+  /**
+   * Reorder List
+   *
+   * <p>You are given the head of a singly linked-list. The list can be
+   * represented as:
+   *
+   * <pre>L0 → L1 → … → Ln - 1 → Ln</pre>
+   *
+   * <p>Reorder the list to be on the following form:
+   *
+   * <pre>L0 → Ln → L1 → Ln - 1 → L2 → Ln - 2 → ...</pre>
+   *
+   * <p>You may not modify the values in the list's nodes. Only nodes themselves
+   * may be changed.
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the list is in the range [1, 5 * 104].
+   *   <li>1 <= Node.val <= 1000
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/reorder-list/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(1)
+   * </ul>
+   *
+   * <p>Discussion: This solution combines a few different list techniques:
+   * <ul>
+   * <li>fast/slow technique to find the middle of a list
+   * <li>reverse a list
+   * <li>doing annoying pointer stuff - Figuring out this final bit of logic
+   *     is really hard IMO.
+   * </ul>
+   */
+  public static final class ReorderList {
+    public void reorderList(ListNode head) {
+      if (head == null) {
+        return;
+      }
+      ListNode first = head;
+      ListNode second = reverse(mid(head));
+      while (first != null && second != null) {
+        var firstNext = first.next;
+        var secondNext = second.next;
+        first.next = second;
+        second.next = firstNext;
+        first = firstNext;
+        second = secondNext;
+      }
+    }
+
+    private ListNode mid(ListNode head) {
+      var slow = head;
+      var fast = head.next;
+      while (fast != null && fast.next != null) {
+        slow = slow.next;
+        fast = fast.next.next;
+      }
+      return slow;
+    }
+
+    private ListNode reverse(ListNode head) {
+      ListNode prev = null;
+      ListNode node = head;
+      while (node != null) {
+        var temp = node.next;
+        node.next = prev;
+        prev = node;
+        node = temp;
+      }
+      return prev;
+    }
+  }
 }

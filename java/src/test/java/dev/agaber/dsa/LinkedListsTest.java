@@ -63,4 +63,20 @@ public class LinkedListsTest {
     assertThat(mergeTwoLists(ListNode.fromString("[]"), ListNode.fromString("[0]")))
         .isEqualTo(ListNode.fromString("[0]"));
   }
+
+  @Test
+  public void reorderListsTestCase1() throws Exception {
+    ReorderList rl = new ReorderList();
+    ListNode list = ListNode.fromString("[1,2,3,4]");
+    rl.reorderList(list);
+    assertThat(list).isEqualTo(ListNode.fromString("[1,4,2,3]"));
+  }
+
+  @Test
+  public void reorderListsTestCase2() throws Exception {
+    ReorderList rl = new ReorderList();
+    ListNode list = ListNode.fromString("[1,2,3,4,5]");
+    rl.reorderList(list);
+    assertThat(list).isEqualTo(ListNode.fromString("[1,5,2,4,3]"));
+  }
 }
