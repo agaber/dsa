@@ -13,12 +13,10 @@ final class Graphs {
   /**
    * Number of Islands
    *
-   * <p>
-   * Given an m x n 2D binary grid grid which represents a map of '1's
+   * <p>Given an m x n 2D binary grid grid which represents a map of '1's
    * (land) and '0's (water), return the number of islands.
    *
-   * <p>
-   * An island is surrounded by water and is formed by connecting adjacent
+   * <p>An island is surrounded by water and is formed by connecting adjacent
    * lands horizontally or vertically. You may assume all four edges of the grid
    * are all surrounded by water.
    *
@@ -85,50 +83,46 @@ final class Graphs {
   /**
    * Game of Life
    *
-   * <p>
-   * According to Wikipedia's article: "The Game of Life, also known simply as
-   * Life, is a cellular automaton devised by the British mathematician
+   * <p>According to Wikipedia's article: "The Game of Life, also known simply
+   * as Life, is a cellular automaton devised by the British mathematician
    * John Horton Conway in 1970."
    *
-   * <p>
-   * The board is made up of an m x n grid of cells, where each cell has an
+   * <p>The board is made up of an m x n grid of cells, where each cell has an
    * initial state: live (represented by a 1) or dead (represented by a 0). Each
    * cell interacts with its eight neighbors (horizontal, vertical, diagonal)
    * using the following four rules (taken from the above Wikipedia article):
    *
    * <ul>
-   * <li>Any live cell with fewer than two live neighbors dies as if caused by
-   * under-population.
-   * <li>Any live cell with two or three live neighbors lives on to the next
-   * generation.
-   * <li>Any live cell with more than three live neighbors dies, as if by
-   * over-population.
-   * <li>Any dead cell with exactly three live neighbors becomes a live cell,
-   * as if by reproduction.
-   * <li>The next state is created by applying the above rules simultaneously
-   * to every cell in the current state, where births and deaths occur
-   * simultaneously. Given the current state of the m x n grid board, return
-   * the next state.
+   *   <li>Any live cell with fewer than two live neighbors dies as if caused by
+   *       under-population.
+   *   <li>Any live cell with two or three live neighbors lives on to the next
+   *       generation.
+   *   <li>Any live cell with more than three live neighbors dies, as if by
+   *       over-population.
+   *   <li>Any dead cell with exactly three live neighbors becomes a live cell,
+   *       as if by reproduction.
+   *   <li>The next state is created by applying the above rules simultaneously
+   *       to every cell in the current state, where births and deaths occur
+   *       simultaneously. Given the current state of the m x n grid board, return
+   *       the next state.
+   * </ul>
+   *
+   * <ul>Constraints:
+   *   <li>m == board.length
+   *   <li>n == board[i].length
+   *   <li>1 <= m, n <= 25
+   *   <li>board[i][j] is 0 or 1.
    * </ul>
    *
    * <ul>
-   * Constraints:
-   * <li>m == board.length
-   * <li>n == board[i].length
-   * <li>1 <= m, n <= 25
-   * <li>board[i][j] is 0 or 1.
+   *   <li>List: None
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/game-of-life/
+   *   <li>Time complexity: O(2(m * n)) = O(m * n)
+   *   <li>Space complexity: O(1)
    * </ul>
    *
-   * <ul>
-   * <li>List: None
-   * <li>Level: Medium
-   * <li>https://leetcode.com/problems/game-of-life/
-   * <li>Time complexity: O(2(m * n)) = O(m * n)
-   * <li>Space complexity: O(1)
-   * </ul>
-   *
-   * Discussion: They want this in O(1) space complexity (could be a follow-up
-   * question).
+   * Discussion: They want this in O(1) space complexity.
    */
   static final class GameOfLife {
     private static final int[][] DIRECTIONS = new int[][] {
@@ -202,41 +196,36 @@ final class Graphs {
   /**
    * Pacific Atlantic Water Flow
    *
-   * <p>
-   * There is an m x n rectangular island that borders both the Pacific Ocean
+   * <p>There is an m x n rectangular island that borders both the Pacific Ocean
    * and Atlantic Ocean. The Pacific Ocean touches the island's left and top
    * edges, and the Atlantic Ocean touches the island's right and bottom edges.
    *
-   * <p>
-   * The island is partitioned into a grid of square cells. You are given an
+   * <p>The island is partitioned into a grid of square cells. You are given an
    * m x n integer matrix heights where heights[r][c] represents the height
    * above sea level of the cell at coordinate (r, c).
    *
-   * <p>
-   * The island receives a lot of rain, and the rain water can flow to
+   * <p>The island receives a lot of rain, and the rain water can flow to
    * neighboring cells directly north, south, east, and west if the neighboring
    * cell's height is less than or equal to the current cell's height. Water can
    * flow from any cell adjacent to an ocean into the ocean.
    *
-   * <p>
-   * Return a 2D list of grid coordinates result where result[i] = [ri, ci]
+   * <p>Return a 2D list of grid coordinates result where result[i] = [ri, ci]
    * denotes that rain water can flow from cell (ri, ci) to both the Pacific and
    * Atlantic oceans.
    *
-   * <ul>
-   * Constraints:
-   * <li>m == heights.length
-   * <li>n == heights[r].length
-   * <li>1 <= m, n <= 200
-   * <li>0 <= heights[r][c] <= 105
+   * <ul>Constraints:
+   *   <li>m == heights.length
+   *   <li>n == heights[r].length
+   *   <li>1 <= m, n <= 200
+   *   <li>0 <= heights[r][c] <= 105
    * </ul>
    *
    * <ul>
-   * <li>List: Blind 75
-   * <li>Level: Medium
-   * <li>https://leetcode.com/problems/game-of-life/
-   * <li>Time complexity: O(m * n), I think
-   * <li>Space complexity: O(m * n)
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/game-of-life/
+   *   <li>Time complexity: O(m * n), I think
+   *   <li>Space complexity: O(m * n)
    * </ul>
    *
    * Discussion: The trick here (and I didn't figure this out on my own
@@ -248,8 +237,8 @@ final class Graphs {
   static final class PacificAtanticWaterFlow {
     private static final int[][] DIRECTIONS = new int[][] {
         { -1, 0 }, // Up
-        { 0, 1 }, // Right
-        { 1, 0 }, // Down
+        { 0,  1 }, // Right
+        { 1,  0 }, // Down
         { 0, -1 }, // Left
     };
 
@@ -316,8 +305,7 @@ final class Graphs {
    * Identify the Origin-to-Final Destination itinerary of the traveler from
    * the list of tickets
    *
-   * <p>
-   * Example:
+   * <p>Example:
    *
    * <pre>
    * Input:
@@ -329,8 +317,7 @@ final class Graphs {
    * Chicago->Houston, Houston->Las Vegas, Las Vegas->New York, New York->Dallas
    * </pre>
    *
-   * <p>
-   * It may be assumed that the input list of tickets is not cyclic and there
+   * <p>It may be assumed that the input list of tickets is not cyclic and there
    * is one ticket from every city except the final destination.
    */
   static String printItinerary(String[][] tickets) {
