@@ -37,10 +37,10 @@ final class Graphs {
    */
   static final class NumberOfIslands {
     private static final int[][] DIRECTIONS = new int[][] {
-        { -1, 0 }, // Up
-        { 0,  1 }, // Right
-        { 1,  0 }, // Down
-        { 0, -1 }, // Left
+        { -1,  0 }, // Up
+        {  0,  1 }, // Right
+        {  1,  0 }, // Down
+        {  0, -1 }, // Left
     };
 
     private char[][] grid;
@@ -125,13 +125,13 @@ final class Graphs {
    */
   static final class GameOfLife {
     private static final int[][] DIRECTIONS = new int[][] {
-        { -1, 0 }, // Up
-        { -1, 1 }, // Up right
-        { 0, 1 }, // Right
-        { 1, 1 }, // Down right
-        { 1, 0 }, // Down
-        { 1, -1 }, // Down left
-        { 0, -1 }, // Left
+        { -1,  0 }, // Up
+        { -1,  1 }, // Up right
+        {  0,  1 }, // Right
+        {  1,  1 }, // Down right
+        {  1,  0 }, // Down
+        {  1, -1 }, // Down left
+        {  0, -1 }, // Left
         { -1, -1 }, // Up left
     };
 
