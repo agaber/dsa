@@ -20,20 +20,19 @@ final class Graphs {
    * lands horizontally or vertically. You may assume all four edges of the grid
    * are all surrounded by water.
    *
-   * <ul>
-   * Constraints:
-   * <li>m == grid.length
-   * <li>n == grid[i].length
-   * <li>1 <= m, n <= 300
-   * <li>grid[i][j] is '0' or '1'.
+   * <ul>Constraints:
+   *   <li>m == grid.length
+   *   <li>n == grid[i].length
+   *   <li>1 <= m, n <= 300
+   *   <li>grid[i][j] is '0' or '1'.
    * </ul>
    *
    * <ul>
-   * <li>List: Blind 75
-   * <li>Level: Medium
-   * <li>https://leetcode.com/problems/number-of-islands/
-   * <li>Time complexity: O(n * m)
-   * <li>Space complexity: O(1)
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li>https://leetcode.com/problems/number-of-islands/
+   *   <li>Time complexity: O(n * m)
+   *   <li>Space complexity: O(1)
    * </ul>
    */
   static final class NumberOfIslands {
