@@ -38,8 +38,8 @@ final class Graphs {
   static final class NumberOfIslands {
     private static final int[][] DIRECTIONS = new int[][] {
         { -1, 0 }, // Up
-        { 0, 1 }, // Right
-        { 1, 0 }, // Down
+        { 0,  1 }, // Right
+        { 1,  0 }, // Down
         { 0, -1 }, // Left
     };
 
