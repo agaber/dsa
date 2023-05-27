@@ -61,10 +61,7 @@ final class Trees {
       if (left != null && !left.equals(other.left)) {
         return false;
       }
-      if (right != null && !right.equals(other.right)) {
-        return false;
-      }
-      return true;
+      return right == null || right.equals(other.right);
     }
 
     /**
@@ -210,7 +207,7 @@ final class Trees {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Easy
-   *   <li>https://leetcode.com/problems/invert-binary-tree/
+   *   <li><a href="https://leetcode.com/problems/invert-binary-tree/">LeetCode</a>
    *   <li>Time complexity: O(n)
    *   <li>Space complexity: O(n)
    * </ul>
@@ -220,8 +217,7 @@ final class Trees {
       return null;
     }
     var left = invertTree(root.left);
-    var right = invertTree(root.right);
-    root.left = right;
+    root.left = invertTree(root.right);
     root.right = left;
     return root;
   }
@@ -242,7 +238,7 @@ final class Trees {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Easy
-   *   <li>https://leetcode.com/problems/maximum-depth-of-binary-tree/
+   *   <li><a href="https://leetcode.com/problems/maximum-depth-of-binary-tree/">LeetCode</a>
    *   <li>Time complexity: O(n)
    *   <li>Space complexity: O(n)
    * </ul>
@@ -273,7 +269,7 @@ final class Trees {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Easy
-   *   <li>https://leetcode.com/problems/same-tree/
+   *   <li><a href="https://leetcode.com/problems/same-tree/">LeetCode</a>
    *   <li>Time complexity: O(n)
    *   <li>Space complexity: O(n)
    * </ul>
