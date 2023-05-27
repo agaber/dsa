@@ -30,7 +30,7 @@ final class TwoPointers {
    *   <li>Space complexity: O(1)
    * </ul>
    */
-  public static int[] twoSumII(int[] numbers, int target) {
+  static int[] twoSumII(int[] numbers, int target) {
     int l = 0;
     int r = numbers.length - 1;
     while (l < r) {
@@ -68,7 +68,7 @@ final class TwoPointers {
    *   <li>Space complexity: O(n)
    * </ul>
    */
-  public static final class ThreeSum {
+  static final class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
       Arrays.sort(nums);
       var threeSums = new ArrayList<List<Integer>>();
@@ -130,7 +130,7 @@ final class TwoPointers {
    *   <li>Space complexity: O(1)
    * </ul>
    */
-  public static boolean isPalindrome(String s) {
+  static boolean isPalindrome(String s) {
     if (s.isBlank() || s.length() == 1) {
       return true;
     }
@@ -182,7 +182,7 @@ final class TwoPointers {
    *   <li>Space complexity: O(1)
    * </ul>
    */
-  public static int maxArea(int[] height) {
+  static int maxArea(int[] height) {
     int l = 0;
     int r = height.length - 1;
     int max = 0;
@@ -199,6 +199,5 @@ final class TwoPointers {
     return max;
   }
 
-  private TwoPointers() {
-  }
+  private TwoPointers() {}
 }

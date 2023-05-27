@@ -2,7 +2,7 @@ package dev.agaber.dsa;
 
 import java.util.*;
 
-public final class SlidingWindows {
+final class SlidingWindows {
   /**
    * Best Time to Buy and Sell Stock
    *
@@ -28,7 +28,7 @@ public final class SlidingWindows {
    *   <li>Space complexity: O(1)
    * </ul>
    */
-  public static int maxProfit(int[] prices) {
+  static int maxProfit(int[] prices) {
     if (prices.length == 0) {
       return 0;
     }
@@ -60,7 +60,7 @@ public final class SlidingWindows {
    *   <li>Space complexity: O(n)
    * </ul>
    */
-  public static int lengthOfLongestSubstring(String s) {
+  static int lengthOfLongestSubstring(String s) {
     int l = 0, r = 0, maxSubstringSize = 0;
     var seen = new HashSet<Character>(s.length());
     while (l <= r && r < s.length()) {
@@ -100,7 +100,7 @@ public final class SlidingWindows {
    *   <li>Space complexity:
    * </ul>
    */
-  public static int characterReplacement(String s, int k) {
+  static int characterReplacement(String s, int k) {
     int answer = 0;
     int l = 0;
     int[] counter = new int[26];
@@ -148,7 +148,7 @@ public final class SlidingWindows {
    *   <li>Space complexity: O(n)
    * </ul>
    */
-  public static String minWindow(String s, String t) {
+  static String minWindow(String s, String t) {
     int need = t.length();
     var tcounter = new HashMap<Character, Integer>();
     for (char c : t.toCharArray()) {

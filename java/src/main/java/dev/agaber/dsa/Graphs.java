@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class Graphs {
+final class Graphs {
   /**
    * Number of Islands
    *
@@ -38,7 +38,7 @@ public class Graphs {
    * <li>Space complexity: O(1)
    * </ul>
    */
-  public static final class NumberOfIslands {
+  static final class NumberOfIslands {
     private static final int[][] DIRECTIONS = new int[][] {
         { -1, 0 }, // Up
         { 0, 1 }, // Right
@@ -130,8 +130,8 @@ public class Graphs {
    * Discussion: They want this in O(1) space complexity (could be a follow-up
    * question).
    */
-  public static final class GameOfLife {
-    private static int[][] DIRECTIONS = new int[][] {
+  static final class GameOfLife {
+    private static final int[][] DIRECTIONS = new int[][] {
         { -1, 0 }, // Up
         { -1, 1 }, // Up right
         { 0, 1 }, // Right
@@ -245,8 +245,8 @@ public class Graphs {
    * I'm not aware of any optimization that allows us to avoid exploring the
    * same point multiple times.
    */
-  public static final class PacificAtanticWaterFlow {
-    private static int[][] DIRECTIONS = new int[][] {
+  static final class PacificAtanticWaterFlow {
+    private static final int[][] DIRECTIONS = new int[][] {
         { -1, 0 }, // Up
         { 0, 1 }, // Right
         { 1, 0 }, // Down
@@ -333,7 +333,7 @@ public class Graphs {
    * It may be assumed that the input list of tickets is not cyclic and there
    * is one ticket from every city except the final destination.
    */
-  public static String printItinerary(String[][] tickets) {
+  static String printItinerary(String[][] tickets) {
     var graph = new HashMap<String, String>();
     for (String[] ticket : tickets) {
       graph.put(ticket[0], ticket[1]);

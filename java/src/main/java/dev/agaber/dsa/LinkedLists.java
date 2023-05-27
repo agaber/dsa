@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableList;
 
 import java.util.*;
 
-public final class LinkedLists {
+final class LinkedLists {
   /**
    * LeetCode's definition for singly-linked list.
    * public class ListNode {
@@ -18,7 +18,7 @@ public final class LinkedLists {
    *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
    * }
    */
-  public static class ListNode {
+  static class ListNode {
     public int val;
     public ListNode next;
 
@@ -64,7 +64,7 @@ public final class LinkedLists {
 
     static ListNode fromString(String string) {
       var splitter = Splitter.on(',').trimResults().omitEmptyStrings();
-      var list = splitter.splitToList(string.replaceAll("\\[|\\]", ""));
+      var list = splitter.splitToList(string.replaceAll("\\[|]", ""));
       return fromList(list.stream().map(Integer::parseInt).collect(toImmutableList()));
     }
 
@@ -95,14 +95,14 @@ public final class LinkedLists {
    *   <li>List: Blind 75
    *   <li>Level: Easy
    *   <li>https://leetcode.com/problems/reverse-linked-list/
-   *   <li>Time complexity:
-   *   <li>Space complexity:
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(1) (iterative)
    * </ul>
    *
    * <p>Follow up: A linked list can be reversed either iteratively or
    * recursively. Could you implement both?
    */
-  public static ListNode reverseListI(ListNode head) {
+  static ListNode reverseListI(ListNode head) {
     if (head == null) {
       return null;
     }
@@ -117,11 +117,11 @@ public final class LinkedLists {
     return prev;
   }
 
-  public static ListNode reverseListR(ListNode head) {
+  static ListNode reverseListR(ListNode head) {
     return reverseListR(head, null);
   }
 
-  private static ListNode reverseListR(ListNode head, ListNode prev) {
+  static ListNode reverseListR(ListNode head, ListNode prev) {
     if (head == null) {
       return null;
     }
@@ -158,7 +158,7 @@ public final class LinkedLists {
    * can also be done recursively and I think the space complexity would be
    * O(n + m).
    */
-  public static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+  static ListNode mergeTwoLists(ListNode list1, ListNode list2) {
     var prehead = new ListNode(0);
     var tail = prehead;
     while (list1 != null && list2 != null) {
@@ -212,7 +212,7 @@ public final class LinkedLists {
    *     is really hard IMO.
    * </ul>
    */
-  public static final class ReorderList {
+  static final class ReorderList {
     public void reorderList(ListNode head) {
       if (head == null) {
         return;

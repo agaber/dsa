@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 
 import java.util.*;
 
-public final class Stacks {
+final class Stacks {
   /**
    * Valid Parentheses
    *
@@ -31,7 +31,7 @@ public final class Stacks {
    *   <li>Space complexity: O(n)
    * </ul>
    */
-  public static final class ValidParenthesis {
+  static final class ValidParenthesis {
     // Doing this with a switch/if conditional will perform better.
     private static final ImmutableMap<Character, Character> MATCHES =
         ImmutableMap.<Character, Character>builder()

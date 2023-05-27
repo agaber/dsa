@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public final class Tries {
+final class Tries {
   /**
    * Implement Trie (Prefix Tree)
    *
@@ -43,7 +43,7 @@ public final class Tries {
    *       in the string.
    * </ul>
    */
-  public static class Trie {
+  static class Trie {
     private final TrieNode root;
 
     public Trie() {

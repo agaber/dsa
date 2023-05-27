@@ -32,7 +32,7 @@ final class ArraysAndHashing {
    * <p>Discussion: Of course there's an O(n^2) solution and there sorting the
    * list is another option but will perform in O(n log n).
    */
-  public static boolean containsDuplicate(int[] nums) {
+  static boolean containsDuplicate(int[] nums) {
     var seen = new HashSet<Integer>();
     for (int num : nums) {
       if (seen.contains(num)) {
@@ -70,7 +70,7 @@ final class ArraysAndHashing {
    * as you can get with this I'd presume. Arrays tend to perform better than
    * Sets and Maps usually.
    */
-  public static boolean isAnagram(String s, String t) {
+  static boolean isAnagram(String s, String t) {
     if (s.length() != t.length()) {
       return false;
     }
@@ -81,7 +81,7 @@ final class ArraysAndHashing {
       counter[t.charAt(i) - 'a']--;
     }
 
-    return !Arrays.stream(counter).anyMatch(count -> count != 0);
+    return Arrays.stream(counter).noneMatch(count -> count != 0);
   }
 
   /**
@@ -112,7 +112,7 @@ final class ArraysAndHashing {
    *
    * <p>Discussion: Cool.
    */
-  public static int[] twoSum(int[] nums, int target) {
+  static int[] twoSum(int[] nums, int target) {
     var seen = new HashMap<Integer, Integer>();
     for (int i = 0; i < nums.length; i++) {
       int compliment = target - nums[i];
@@ -153,7 +153,7 @@ final class ArraysAndHashing {
    * is the size of each anagram. Therefore the solution is really O(n * slogs).
    * I copied a better idea on LeetCode.
    */
-  public static List<List<String>> groupAnagrams(String[] strs) {
+  static List<List<String>> groupAnagrams(String[] strs) {
     var map = new HashMap<String, List<String>>();
     for (String str : strs) {
       var letters = str.split("");
@@ -192,7 +192,7 @@ final class ArraysAndHashing {
    * priority queues and honestly you probably could just sort with arguably
    * just as good performance. My original version had a sortable object btw.
    */
-  public static int[] topKFrequent(int[] nums, int k) {
+  static int[] topKFrequent(int[] nums, int k) {
     if (nums.length == k) {
       return nums;
     }
@@ -245,7 +245,7 @@ final class ArraysAndHashing {
    *
    * <p>TODO: Do the O(1) memory solution.
    */
-  public static int[] productExceptSelf(int[] nums) {
+  static int[] productExceptSelf(int[] nums) {
     int[] prefix = new int[nums.length + 2];
     prefix[0] = 1;
     prefix[prefix.length - 1] = 1;
@@ -287,7 +287,7 @@ final class ArraysAndHashing {
    *   <li>Space complexity: O(n)
    * </ul>
    */
-  public static int longestConsecutive(int[] nums) {
+  static int longestConsecutive(int[] nums) {
     var numset = Arrays.stream(nums).boxed().collect(toSet());
     int max = 0;
     for (int num : nums) {
@@ -356,7 +356,7 @@ final class ArraysAndHashing {
    *
    * <p>I'm not really sure why this is a medium level question.
    */
-  public static final class Codec {
+  static final class Codec {
     // Outside the 256 limit that they say their input will contain.
     private static final String DIVIDER = "😂";
     private static final String WRAPPER = "🙃";
@@ -377,6 +377,5 @@ final class ArraysAndHashing {
     }
   }
 
-  private ArraysAndHashing() {
-  }
+  private ArraysAndHashing() {}
 }
