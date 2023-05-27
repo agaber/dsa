@@ -225,4 +225,72 @@ final class Trees {
     root.right = left;
     return root;
   }
+
+  /**
+   * Maximum Depth of Binary Tree
+   *
+   * <p>Given the root of a binary tree, return its maximum depth.
+   *
+   * <p>A binary tree's maximum depth is the number of nodes along the longest
+   * path from the root node down to the farthest leaf node.
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the tree is in the range [0, 10^4].
+   *   <li>-100 <= Node.val <= 100
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Easy
+   *   <li>https://leetcode.com/problems/maximum-depth-of-binary-tree/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   */
+  static int maxDepth(TreeNode root) {
+    if (root == null) {
+      return 0;
+    }
+    int left = 1 + maxDepth(root.left);
+    int right = 1 + maxDepth(root.right);
+    return Math.max(left, right);
+  }
+
+  /**
+   * Same Tree
+   *
+   * <p>Given the roots of two binary trees p and q, write a function to check
+   * if they are the same or not.
+   *
+   * <p>Two binary trees are considered the same if they are structurally
+   * identical, and the nodes have the same value.
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in both trees is in the range [0, 100].
+   *   <li>-104 <= Node.val <= 10^4
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Easy
+   *   <li>https://leetcode.com/problems/same-tree/
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   *
+   * <p>Discussion: Yes this is the same logic as TreeNode.equals(TreeNode) and
+   * no, I'm not going to consolidate anything.
+   */
+  static boolean isSameTree(TreeNode p, TreeNode q) {
+    if (p == null && q == null) {
+      return true;
+    }
+    if (p == null || q == null) {
+      return false;
+    }
+    if (p.val != q.val) {
+      return false;
+    }
+    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+  }
 }

@@ -32,4 +32,17 @@ public final class TreesTest {
     assertThat(invertTree(createTree("[2,1,3]"))).isEqualTo(createTree("[2,3,1]"));
     assertThat(invertTree(createTree("[]"))).isEqualTo(createTree("[]"));
   }
+
+  @Test
+  public void testMaxDepth() {
+    assertThat(maxDepth(createTree("[3,9,20,null,null,15,7]"))).isEqualTo(3);
+    assertThat(maxDepth(createTree("[1,null,2]"))).isEqualTo(2);
+  }
+
+  @Test
+  public void testIsSameTree() {
+    assertThat(isSameTree(createTree("[1,2,3]"), createTree("[1,2,3]"))).isTrue();
+    assertThat(isSameTree(createTree("[1,2]"), createTree("[1,null,2]"))).isFalse();
+    assertThat(isSameTree(createTree("[1,2,1]"), createTree("[1,1,2]"))).isFalse();
+  }
 }
