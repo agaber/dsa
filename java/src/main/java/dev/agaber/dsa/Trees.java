@@ -289,4 +289,46 @@ final class Trees {
     }
     return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
   }
+
+  /**
+   * Subtree of Another Tree
+   *
+   * <p>Given the roots of two binary trees root and subRoot, return true if
+   * there is a subtree of root with the same structure and node values of
+   * subRoot and false otherwise.
+   *
+   * <p>A subtree of a binary tree is a tree that consists of a node in tree and
+   * all of this node's descendants. The tree could also be considered as a
+   * subtree of itself.
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the root tree is in the range [1, 2000].
+   *   <li>The number of nodes in the subRoot tree is in the range [1, 1000].
+   *   <li>-10^4 <= root.val <= 10^4
+   *   <li>-10^4 <= subRoot.val <= 10^4
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Easy
+   *   <li><a href="https://leetcode.com/problems/subtree-of-another-tree">LeetCode</a>
+   *   <li>Time complexity: O(mn), n = nodes in root, m = nodes in subRoot
+   *   <li>Space complexity: O(m + n)
+   * </ul>
+   *
+   * <p>Discussion: This is easier when you've already solved isSameTree, I
+   * guess.
+   */
+  static boolean isSubtree(TreeNode root, TreeNode subRoot) {
+    if (root == null && subRoot == null) {
+      return true;
+    }
+    if (root == null || subRoot == null) {
+      return false;
+    }
+    if (isSameTree(root, subRoot)) {
+      return true;
+    }
+    return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
+  }
 }

@@ -45,4 +45,37 @@ public final class TreesTest {
     assertThat(isSameTree(createTree("[1,2]"), createTree("[1,null,2]"))).isFalse();
     assertThat(isSameTree(createTree("[1,2,1]"), createTree("[1,1,2]"))).isFalse();
   }
+
+  @Test
+  public void isSubtreeTestCase1() {
+    assertThat(isSubtree(createTree("[3,4,5,1,2]"), createTree("[4,1,2]"))).isTrue();
+  }
+
+  @Test
+  public void isSubtreeTestCase2() {
+    var root = createTree("[3,4,5,1,2,null,null,null,null,0]");
+    var subroot = createTree("[4,1,2]");
+    assertThat(isSubtree(root, subroot)).isFalse();
+  }
+
+  @Test
+  public void isSubtreeTestCase3() {
+    assertThat(isSubtree(createTree("[1,1]"), createTree("[1]"))).isTrue();
+  }
+
+  @Test
+  public void isSubtreeTestCase4() {
+    var root = createTree(
+        "[1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,null,1,2]");
+    var subroot = createTree(
+        "[1,null,1,null,1,null,1,null,1,null,1,2]");
+    assertThat(isSubtree(root, subroot)).isTrue();
+  }
+
+  @Test
+  public void isSubtreeTestCase5() {
+    var root = createTree("[-1,-4,8,-6,-2,3,9,null,-5,null,null,0,7]");
+    var subroot = createTree("[3,0,5848]");
+    assertThat(isSubtree(root, subroot)).isFalse();
+  }
 }
