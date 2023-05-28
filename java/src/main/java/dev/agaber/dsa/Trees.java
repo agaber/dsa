@@ -413,4 +413,56 @@ final class Trees {
     }
     return result;
   }
+
+  /**
+   * Validate Binary Search Tree
+   *
+   * <p>Given the root of a binary tree, determine if it is a valid binary
+   * search tree (BST).
+   *
+   * <p>A valid BST is defined as follows:
+   *
+   * <ul>
+   *   <li>The left subtree of a node contains only nodes with keys less than
+   *       the node's key.
+   *   <li>The right subtree of a node contains only nodes with keys greater
+   *       than the node's key.
+   *   <li>Both the left and right subtrees must also be binary search trees.
+   * </ul>
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the tree is in the range [1, 10^4].
+   *   <li>-231 <= Node.val <= 231 - 1
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li><a href="https://leetcode.com/problems/validate-binary-search-tree/">LeetCode</a>
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   *
+   * <p>Discussion: There is an alternative solution that is more intuitive to
+   * me but suboptimal, which is to build an array of values using an inorder
+   * traversal and then check if the array is sorted properly. That runs in
+   * O(2n) which is still O(n) but less efficient than this solution. I actually
+   * find the recursive solution below to be kind of confusing tbh.
+   */
+  static boolean isValidBST(TreeNode root) {
+    return isValidBST(root, null, null);
+  }
+
+  private static boolean isValidBST(TreeNode root, Integer low, Integer high) {
+    if (root == null) {
+      return true;
+    }
+    if (low != null && root.val >= low) {
+      return false;
+    }
+    if (high != null && root.val <= high) {
+      return false;
+    }
+    return isValidBST(root.left, root.val, high) && isValidBST(root.right, low, root.val);
+  }
 }

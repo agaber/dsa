@@ -113,4 +113,13 @@ public final class TreesTest {
         .containsExactly(Arrays.asList(1));
     assertThat(levelOrder(createTree("[]"))).isEmpty();
   }
+
+  @Test
+  public void testIsValidBST() {
+    assertThat(isValidBST(createTree("[2,1,3]"))).isTrue();
+    assertThat(isValidBST(createTree("[5,1,4,null,null,3,6]"))).isFalse();
+    assertThat(isValidBST(createTree("[2,2,2]"))).isFalse();
+    assertThat(isValidBST(createTree("[1,null,1]"))).isFalse();
+    assertThat(isValidBST(createTree("[5,4,6,null,null,3,7]"))).isFalse();
+  }
 }
