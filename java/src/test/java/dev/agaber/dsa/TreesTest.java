@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 public final class TreesTest {
   @Test
   public void createTreeFromArray() {
@@ -77,5 +79,38 @@ public final class TreesTest {
     var root = createTree("[-1,-4,8,-6,-2,3,9,null,-5,null,null,0,7]");
     var subroot = createTree("[3,0,5848]");
     assertThat(isSubtree(root, subroot)).isFalse();
+  }
+
+  @Test
+  public void lowestCommonAncestorTestCase1() {
+    var root = createTree("[6,2,8,0,4,7,9,null,null,3,5]");
+    assertThat(lowestCommonAncestor(root, new TreeNode(2), new TreeNode(8)).val)
+        .isEqualTo(6);
+  }
+
+  @Test
+  public void lowestCommonAncestorTestCase2() {
+    var root = createTree("[6,2,8,0,4,7,9,null,null,3,5]");
+    assertThat(lowestCommonAncestor(root, new TreeNode(2), new TreeNode(8)).val)
+        .isEqualTo(6);
+  }
+
+  @Test
+  public void lowestCommonAncestorTestCase3() {
+    var root = createTree("[2,1]");
+    assertThat(lowestCommonAncestor(root, new TreeNode(2), new TreeNode(1)).val)
+        .isEqualTo(2);
+  }
+
+  @Test
+  public void testLevelOrder() {
+    assertThat(levelOrder(createTree("[3,9,20,null,null,15,7]")))
+        .containsExactly(
+            Arrays.asList(3),
+            Arrays.asList(9, 20),
+            Arrays.asList(15, 7));
+    assertThat(levelOrder(createTree("[1]")))
+        .containsExactly(Arrays.asList(1));
+    assertThat(levelOrder(createTree("[]"))).isEmpty();
   }
 }

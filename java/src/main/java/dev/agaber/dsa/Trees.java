@@ -331,4 +331,86 @@ final class Trees {
     }
     return isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot);
   }
+
+  /**
+   * Lowest Common Ancestor of a Binary Search Tree
+   *
+   * <p>Given a binary search tree (BST), find the lowest common ancestor (LCA)
+   * node of two given nodes in the BST.
+   *
+   * <p>According to the definition of LCA on Wikipedia: "The lowest common
+   * ancestor is defined between two nodes p and q as the lowest node in T that
+   * has both p and q as descendants (where we allow a node to be a descendant
+   * of itself)."
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the tree is in the range [2, 10^5].
+   *   <li>-109 <= Node.val <= 109
+   *   <li>All Node.val are unique.
+   *   <li>p != q
+   *   <li>p and q will exist in the BST.
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li><a href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">LeetCode</a>
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   */
+  static TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (p.val < root.val && q.val < root.val) {
+      return lowestCommonAncestor(root.left, p, q);
+    } else if (p.val > root.val && q.val > root.val) {
+      return lowestCommonAncestor(root.right, p, q);
+    } else {
+      return root;
+    }
+  }
+
+  /**
+   * Binary Tree Level Order Traversal
+   *
+   * <p>Given the root of a binary tree, return the level order traversal of its
+   * nodes' values. (i.e., from left to right, level by level).
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the tree is in the range [0, 2000].
+   *   <li>-1000 <= Node.val <= 1000
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li><a href="https://leetcode.com/problems/binary-tree-level-order-traversal/">LeetCode</a>
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(n)
+   * </ul>
+   */
+  static List<List<Integer>> levelOrder(TreeNode root) {
+    var result = new ArrayList<List<Integer>>();
+    if (root == null) {
+      return result;
+    }
+    record Tuple(TreeNode node, int level) {}
+    Queue<Tuple> q = new LinkedList<>();
+    q.offer(new Tuple(root, 1));
+    while (!q.isEmpty()) {
+      var tuple = q.poll();
+      var node = tuple.node();
+      int level = tuple.level();
+      while (result.size() < level) {
+        result.add(new ArrayList<Integer>());
+      }
+      result.get(level - 1).add(node.val);
+      if (node.left != null) {
+        q.offer(new Tuple(node.left, level + 1));
+      }
+      if (node.right != null) {
+        q.offer(new Tuple(node.right, level + 1));
+      }
+    }
+    return result;
+  }
 }
