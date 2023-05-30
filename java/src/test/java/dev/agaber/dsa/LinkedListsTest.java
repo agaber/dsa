@@ -93,4 +93,41 @@ public class LinkedListsTest {
     assertThat(removeNthFromEnd(ListNode.fromString("[1,2,3]"), 1))
         .isEqualTo(ListNode.fromString("[1,2]"));
   }
+
+  @Test
+  public void hasCycleTestCase1() {
+    ListNode head = ListNode.fromString("[3,2,0,-4]");
+    createCycle(head, 4, 1);
+    assertThat(hasCycle(head)).isTrue();
+  }
+
+  @Test
+  public void hasCycleTestCase2() {
+    ListNode head = ListNode.fromString("[1,2]");
+    createCycle(head, 2, 0);
+    assertThat(hasCycle(head)).isTrue();
+  }
+
+  @Test
+  public void hasCycleTestCase3() {
+    ListNode head = ListNode.fromString("[1]");
+    assertThat(hasCycle(head)).isFalse();
+  }
+
+  private static void createCycle(ListNode head, int size, int index) {
+    ListNode e1 = null;
+    ListNode e4 = null;
+    ListNode node = new ListNode(0, head);
+    for (int i = 0; i < size; i++) {
+      node = node.next;
+      if (i == index) {
+        e1 = node;
+      } else if (i == size - 1) {
+        e4 = node;
+      }
+    }
+    if (e4 != null) {
+      e4.next = e1;
+    }
+  }
 }
