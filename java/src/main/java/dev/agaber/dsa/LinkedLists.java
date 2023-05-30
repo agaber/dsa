@@ -340,4 +340,88 @@ final class LinkedLists {
     }
     return false;
   }
+
+  /**
+   * Merge k Sorted Lists
+   *
+   * <p>You are given an array of k linked-lists lists, each linked-list is
+   * sorted in ascending order.
+   *
+   * <p>Merge all the linked-lists into one sorted linked-list and return it.
+   *
+   * <ul>Constraints:
+   *   <li>k == lists.length
+   *  <li>0 <= k <= 10^4
+   *  <li>0 <= lists[i].length <= 500
+   *  <li>-10^4 <= lists[i][j] <= 10^4
+   *  <li>lists[i] is sorted in ascending order.
+   *  <li>The sum of lists[i].length will not exceed 10^4.
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Hard
+   *   <li><a href="https://leetcode.com/problems/merge-k-sorted-lists/">LeetCode</a>
+   *   <li>Time complexity: O(nlogk) where n is the max number of elements in a
+   *       list and k is the number of lists
+   *   <li>Space complexity: O(1)
+   * </ul>
+   *
+   * <p>Discussion: There are a few valid options to solve this. I believe this
+   * is the optimal solution but I've also included other solutions that are
+   * interesting after this.
+   */
+  static ListNode mergeKLists(ListNode[] lists) {
+    List<ListNode> nodes = Arrays.stream(lists).filter(Objects::nonNull).toList();
+    while (nodes.size() > 1) {
+      List<ListNode> merged = new ArrayList<>();
+      for (int i = 0; i < nodes.size(); i += 2) {
+        var l1 = nodes.get(i);
+        var l2 = i + 1 < nodes.size() ? nodes.get(i + 1) : null;
+        merged.add(mergeTwoLists(l1, l2));
+      }
+      nodes = merged;
+    }
+    return nodes.isEmpty() ? null : nodes.get(0);
+  }
+
+  /**
+   * Merges an arbitrary amount of sorted lists using a priority queue.
+   *
+   * <p>I think the time complexity is also O(n log k).
+   */
+  static ListNode mergeKListsWithHeap(ListNode[] lists) {
+    var pq = new PriorityQueue<ListNode>(Comparator.comparingInt(x -> x.val));
+    Arrays.stream(lists).filter(Objects::nonNull).forEach(pq::offer);
+
+    var prehead = new ListNode(0);
+    var current = prehead;
+
+    while (!pq.isEmpty()) {
+      var next = pq.poll();
+      current.next = next;
+      current = next;
+      if (next.next != null) {
+        pq.add(next.next);
+      }
+    }
+
+    return prehead.next;
+  }
+
+  /**
+   * Merges an arbitrary amount of sorted lists.
+   *
+   * <p>I think the time complexity is O(nk). Space complexity is a legit O(1)
+   * and it shows in LeetCode's benchmarks, but the first list keeps growing and
+   * thus the merge is a bit slower each time. However, this seems simplest to
+   * remember.
+   */
+  static ListNode mergeKListsNaive(ListNode[] lists) {
+    ListNode merged = lists.length > 0 ? lists[0] : null;
+    for (int i = 1; i < lists.length; i++) {
+      merged = mergeTwoLists(merged, lists[i]);
+    }
+    return merged;
+  }
 }

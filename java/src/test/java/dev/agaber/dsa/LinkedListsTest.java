@@ -134,4 +134,21 @@ public class LinkedListsTest {
       lastElement.next = cycleElement;
     }
   }
+
+  @Test
+  public void mergeKListsWithNonEmptyInput() {
+    var result = mergeKLists(new ListNode[]{
+        ListNode.fromString("[1,4,5]"),
+        ListNode.fromString("[1,3,4]"),
+        ListNode.fromString("[2,6]]"),
+    });
+    assertThat(result).isEqualTo(ListNode.fromString("[1,1,2,3,4,4,5,6]"));
+  }
+
+  @Test
+  public void mergeKListsWithEmptyInput() {
+    assertThat(mergeKLists(new ListNode[0])).isEqualTo(ListNode.fromString("[]"));
+    assertThat(mergeKLists(new ListNode[] {ListNode.fromString("[]")}))
+        .isEqualTo(ListNode.fromString("[]"));
+  }
 }
