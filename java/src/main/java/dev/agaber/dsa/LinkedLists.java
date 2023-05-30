@@ -94,7 +94,7 @@ final class LinkedLists {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Easy
-   *   <li>https://leetcode.com/problems/reverse-linked-list/
+   *   <li><a href="https://leetcode.com/problems/reverse-linked-list/">LeetCode</a>
    *   <li>Time complexity: O(n)
    *   <li>Space complexity: O(1) (iterative)
    * </ul>
@@ -149,7 +149,7 @@ final class LinkedLists {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Easy
-   *   <li>https://leetcode.com/problems/merge-two-sorted-lists/
+   *   <li><a href="https://leetcode.com/problems/merge-two-sorted-lists/">LeetCode</a>
    *   <li>Time complexity: O(n + m)
    *   <li>Space complexity: O(1)
    * </ul>
@@ -199,7 +199,7 @@ final class LinkedLists {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Medium
-   *   <li>https://leetcode.com/problems/reorder-list/
+   *   <li><a href="https://leetcode.com/problems/reorder-list/">LeetCode</a>
    *   <li>Time complexity: O(n)
    *   <li>Space complexity: O(1)
    * </ul>
@@ -250,5 +250,47 @@ final class LinkedLists {
       }
       return prev;
     }
+  }
+
+  /**
+   * Remove Nth Node From End of List
+   *
+   * <p>Given the head of a linked list, remove the nth node from the end of the
+   * list and return its head.
+   *
+   * <ul>Constraints:
+   *   <li>The number of nodes in the list is sz.
+   *   <li>1 <= sz <= 30
+   *   <li>0 <= Node.val <= 100
+   *   <li>1 <= n <= sz
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li><a href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">LeetCode</a>
+   *   <li>Time complexity: O(n)
+   *   <li>Space complexity: O(1)
+   * </ul>
+   *
+   * <p>Discussion: This is a one pass solution and probably the best one can
+   * reasonably do with this problem. There is a two pass solution that involves
+   * making one pass through to count the size of the list and a second pass to
+   * update the list pointers. That solution is far more intuitive to me but
+   * this actually isn't so bad but I have to think about it longer.
+   */
+  static ListNode removeNthFromEnd(ListNode head, int n) {
+    var prehead = new ListNode(0, head);
+    var first = prehead;
+    var last = prehead;
+    int size = 0;
+    while (last != null) {
+      if (size++ > n) {
+        first = first.next;
+      }
+      last = last.next;
+    }
+    first.next = first.next.next;
+    return prehead.next;
   }
 }

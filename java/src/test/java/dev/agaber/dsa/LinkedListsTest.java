@@ -8,34 +8,34 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LinkedListsTest {
   @Test
-  public void listNodeFromToList() throws Exception {
+  public void listNodeFromToList() {
     var list = ImmutableList.of(1, 2, 3, 4, 5, 6, 7);
     ListNode node = ListNode.fromList(list);
     assertThat(node.toList()).containsExactlyElementsOf(list);
   }
 
   @Test
-  public void listNodeToString() throws Exception {
+  public void listNodeToString() {
     var list = ImmutableList.of(1, 2, 3, 4, 5, 6, 7);
     ListNode node = ListNode.fromList(list);
     assertThat(node.toString()).isEqualTo("[1,2,3,4,5,6,7]");
   }
 
   @Test
-  public void listNodeFromString() throws Exception {
+  public void listNodeFromString() {
     assertThat(ListNode.fromString("[1, 2, 3, 4, 5, 6, 7]").toString())
         .isEqualTo("[1,2,3,4,5,6,7]");
 
   }
 
   @Test
-  public void emptyListNodeToFromString() throws Exception {
+  public void emptyListNodeToFromString() {
     assertThat(ListNode.fromList(ImmutableList.of())).isNull();
     assertThat(ListNode.fromString("[]")).isNull();
   }
 
   @Test
-  public void reverseListIterative() throws Exception {
+  public void reverseListIterative() {
     assertThat(reverseListI(ListNode.fromString("[1,2,3,4,5]")))
         .isEqualTo(ListNode.fromString("[5,4,3,2,1]"));
     assertThat(reverseListI(ListNode.fromString("[1,2]")))
@@ -45,7 +45,7 @@ public class LinkedListsTest {
   }
 
   @Test
-  public void reverseListRecursive() throws Exception {
+  public void reverseListRecursive() {
     assertThat(reverseListR(ListNode.fromString("[1,2,3,4,5]")))
         .isEqualTo(ListNode.fromString("[5,4,3,2,1]"));
     assertThat(reverseListR(ListNode.fromString("[1,2]")))
@@ -55,7 +55,7 @@ public class LinkedListsTest {
   }
 
   @Test
-  public void testMergeTwoLists() throws Exception {
+  public void testMergeTwoLists() {
     assertThat(mergeTwoLists(ListNode.fromString("[1,2,4]"), ListNode.fromString("[1,3,4]")))
         .isEqualTo(ListNode.fromString("[1,1,2,3,4,4]"));
     assertThat(mergeTwoLists(ListNode.fromString("[]"), ListNode.fromString("[]")))
@@ -65,7 +65,7 @@ public class LinkedListsTest {
   }
 
   @Test
-  public void reorderListsTestCase1() throws Exception {
+  public void reorderListsTestCase1() {
     ReorderList rl = new ReorderList();
     ListNode list = ListNode.fromString("[1,2,3,4]");
     rl.reorderList(list);
@@ -73,10 +73,24 @@ public class LinkedListsTest {
   }
 
   @Test
-  public void reorderListsTestCase2() throws Exception {
+  public void reorderListsTestCase2() {
     ReorderList rl = new ReorderList();
     ListNode list = ListNode.fromString("[1,2,3,4,5]");
     rl.reorderList(list);
     assertThat(list).isEqualTo(ListNode.fromString("[1,5,2,4,3]"));
+  }
+
+  @Test
+  public void testRemoveNthNode() {
+    assertThat(removeNthFromEnd(ListNode.fromString("[1,2,3,4,5]"), 2))
+        .isEqualTo(ListNode.fromString("[1,2,3,5]"));
+    assertThat(removeNthFromEnd(ListNode.fromString("[1]"), 1))
+        .isEqualTo(ListNode.fromString("[]"));
+    assertThat(removeNthFromEnd(ListNode.fromString("[1,2]"), 1))
+        .isEqualTo(ListNode.fromString("[1]"));
+    assertThat(removeNthFromEnd(ListNode.fromString("[1,2]"), 2))
+        .isEqualTo(ListNode.fromString("[2]"));
+    assertThat(removeNthFromEnd(ListNode.fromString("[1,2,3]"), 1))
+        .isEqualTo(ListNode.fromString("[1,2]"));
   }
 }
