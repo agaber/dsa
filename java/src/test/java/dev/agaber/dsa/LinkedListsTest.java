@@ -1,5 +1,7 @@
 package dev.agaber.dsa;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import com.google.common.collect.ImmutableList;
 import org.junit.jupiter.api.Test;
 import java.util.*;
@@ -97,14 +99,14 @@ public class LinkedListsTest {
   @Test
   public void hasCycleTestCase1() {
     ListNode head = ListNode.fromString("[3,2,0,-4]");
-    createCycle(head, 4, 1);
+    createCycle(head, 1);
     assertThat(hasCycle(head)).isTrue();
   }
 
   @Test
   public void hasCycleTestCase2() {
     ListNode head = ListNode.fromString("[1,2]");
-    createCycle(head, 2, 0);
+    createCycle(head, 0);
     assertThat(hasCycle(head)).isTrue();
   }
 
@@ -114,20 +116,22 @@ public class LinkedListsTest {
     assertThat(hasCycle(head)).isFalse();
   }
 
-  private static void createCycle(ListNode head, int size, int index) {
-    ListNode e1 = null;
-    ListNode e4 = null;
+  private static void createCycle(ListNode head, int cycleIndex) {
+    checkArgument(cycleIndex >= 0);
+    ListNode cycleElement = null;
+    ListNode lastElement = null;
     ListNode node = new ListNode(0, head);
-    for (int i = 0; i < size; i++) {
-      node = node.next;
-      if (i == index) {
-        e1 = node;
-      } else if (i == size - 1) {
-        e4 = node;
+    int i = -1;
+    while (node != null) {
+      if (i++ == cycleIndex) {
+        cycleElement = node;
+      } else if (node.next == null) {
+        lastElement = node;
       }
+      node = node.next;
     }
-    if (e4 != null) {
-      e4.next = e1;
+    if (lastElement != null) {
+      lastElement.next = cycleElement;
     }
   }
 }

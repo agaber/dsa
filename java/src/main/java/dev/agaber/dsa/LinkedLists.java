@@ -325,7 +325,7 @@ final class LinkedLists {
    * <p>Discussion: The more common sense solution, IMO, is to use a HashMap and
    * be careful about comparing the equality of nodes when doing that btw, but
    * Floyd's Tortoise and Hare algorithm allows us to do it in O(1) space
-   * complexity and that is what is used here. There is a mathematic proof for
+   * complexity and that is what is used here. There is a mathematical proof for
    * this solution somewhere btw.
    */
   static boolean hasCycle(ListNode head) {
