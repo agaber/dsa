@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public final class TriesTest {
   @Test
-  public void trieTest() throws Exception {
+  public void trieTest() {
     // ["Trie","insert","search","search","startsWith","insert","search"]
     // [[],["apple"],["apple"],["app"],["app"],["app"],["app"]]
     Trie trie = new Trie();
@@ -20,5 +20,19 @@ public final class TriesTest {
     trie.insert("app");
     assertThat(trie.search("app")).isTrue();
     assertThat(trie.startsWith("app")).isTrue();
+  }
+
+  @Test
+  public void wordDictionary() {
+    // ["WordDictionary","addWord","addWord","addWord","search","search","search","search"]
+    // [[],["bad"],["dad"],["mad"],["pad"],["bad"],[".ad"],["b.."]]
+    var wordDict = new WordDictionary();
+    wordDict.addWord("bad");
+    wordDict.addWord("dad");
+    wordDict.addWord("mad");
+    assertThat(wordDict.search("pad")).isFalse();
+    assertThat(wordDict.search("bad")).isTrue();
+    assertThat(wordDict.search(".ad")).isTrue();
+    assertThat(wordDict.search("b..")).isTrue();
   }
 }

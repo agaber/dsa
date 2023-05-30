@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 public final class TreesTest {
   @Test
@@ -106,11 +107,11 @@ public final class TreesTest {
   public void testLevelOrder() {
     assertThat(levelOrder(createTree("[3,9,20,null,null,15,7]")))
         .containsExactly(
-            Arrays.asList(3),
+            List.of(3),
             Arrays.asList(9, 20),
             Arrays.asList(15, 7));
     assertThat(levelOrder(createTree("[1]")))
-        .containsExactly(Arrays.asList(1));
+        .containsExactly(List.of(1));
     assertThat(levelOrder(createTree("[]"))).isEmpty();
   }
 
@@ -121,5 +122,11 @@ public final class TreesTest {
     assertThat(isValidBST(createTree("[2,2,2]"))).isFalse();
     assertThat(isValidBST(createTree("[1,null,1]"))).isFalse();
     assertThat(isValidBST(createTree("[5,4,6,null,null,3,7]"))).isFalse();
+  }
+
+  @Test
+  public void testKthSmallest() {
+    assertThat(kthSmallest(createTree("[3,1,4,null,2]"), 1)).isEqualTo(1);
+    assertThat(kthSmallest(createTree("[5,3,6,2,4,null,null,1]"), 3)).isEqualTo(3);
   }
 }

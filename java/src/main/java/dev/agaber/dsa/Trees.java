@@ -401,7 +401,7 @@ final class Trees {
       var node = tuple.node();
       int level = tuple.level();
       while (result.size() < level) {
-        result.add(new ArrayList<Integer>());
+        result.add(new ArrayList<>());
       }
       result.get(level - 1).add(node.val);
       if (node.left != null) {
@@ -464,5 +464,45 @@ final class Trees {
       return false;
     }
     return isValidBST(root.left, root.val, high) && isValidBST(root.right, low, root.val);
+  }
+
+  /**
+   * Kth Smallest Element in a BST
+   *
+   * <p>Given the root of a binary search tree, and an integer k, return the kth
+   * smallest value(1-indexed) of all the values of the nodes in the tree.
+   *
+   * <ul>Constraints:
+   *   <li>1 <= k <= n <= 10^4
+   *   <li>0 <= Node.val <= 10^4
+   * </ul>
+   *
+   * <ul>
+   *   <li>List: Blind 75
+   *   <li>Level: Medium
+   *   <li><a href="https://leetcode.com/problems/kth-smallest-element-in-a-bst/">LeetCode</a>
+   *   <li>Time complexity: O(H + k) - where H is the height of the tree, but it
+   *       O(log N + k) for a balanced tree and O(n + k) for an unbalanced tree.
+   *   <li>Space complexity: O(H) but O(n) in the worst case of an unbalanced
+   *       tree and O(log N) in the best case.
+   * </ul>
+   *
+   * <p>Discussion: This solution is iterative in-order traversal with a slight
+   * twist but I have this one memorized.
+   */
+  static int kthSmallest(TreeNode root, int k) {
+    var stack = new Stack<TreeNode>();
+    while (root != null || !stack.isEmpty()) {
+      while (root != null) {
+        stack.push(root);
+        root = root.left;
+      }
+      root = stack.pop();
+      if (--k == 0) {
+        return root.val;
+      }
+      root = root.right;
+    }
+    return 0;
   }
 }
