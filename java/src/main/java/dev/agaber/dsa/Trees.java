@@ -87,6 +87,10 @@ final class Trees {
     }
   }
 
+  static TreeNode tree(String string) {
+    return createTree(string);
+  }
+
   /**
    * Creates a tree from a string so we can easily replicate LeetCode test
    * cases. LeetCode test cases like to represent a tree as an array constructed
@@ -97,7 +101,7 @@ final class Trees {
     var nums = splitter.splitToStream(string.replaceAll("\\[|]", ""))
         .map(n -> n.equals("null") ? null : Integer.parseInt(n))
         .toArray(Integer[]::new);
-    return createTree(nums);
+    return tree(nums);
   }
 
   /**
@@ -105,7 +109,7 @@ final class Trees {
    * cases. LeetCode test cases like to represent a tree as an array constructed
    * from a breath first traversal.
    */
-  static TreeNode createTree(Integer... values) {
+  static TreeNode tree(Integer... values) {
     if (values.length == 0 || values[0] == null) {
       return null;
     }
