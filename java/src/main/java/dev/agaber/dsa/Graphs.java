@@ -30,7 +30,7 @@ final class Graphs {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Medium
-   *   <li>https://leetcode.com/problems/number-of-islands/
+   *   <li><a href="https://leetcode.com/problems/number-of-islands/">LeetCode</a>
    *   <li>Time complexity: O(n * m)
    *   <li>Space complexity: O(1)
    * </ul>
@@ -116,12 +116,12 @@ final class Graphs {
    * <ul>
    *   <li>List: None
    *   <li>Level: Medium
-   *   <li>https://leetcode.com/problems/game-of-life/
+   *   <li><a href="https://leetcode.com/problems/game-of-life/">LeetCode</a>
    *   <li>Time complexity: O(2(m * n)) = O(m * n)
    *   <li>Space complexity: O(1)
    * </ul>
    *
-   * Discussion: They want this in O(1) space complexity.
+   * <p>Discussion: They want this in O(1) space complexity.
    */
   static final class GameOfLife {
     private static final int[][] DIRECTIONS = new int[][] {
@@ -222,7 +222,7 @@ final class Graphs {
    * <ul>
    *   <li>List: Blind 75
    *   <li>Level: Medium
-   *   <li>https://leetcode.com/problems/game-of-life/
+   *   <li><a href="https://leetcode.com/problems/game-of-life/">LeetCode</a>
    *   <li>Time complexity: O(m * n), I think
    *   <li>Space complexity: O(m * n)
    * </ul>
