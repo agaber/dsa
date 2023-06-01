@@ -15,14 +15,14 @@ dependencies {
 }
 
 application {
-  mainClass = 'dev.agaber.dsa.ConsoleApp'
+  mainClass = 'dev.agaber.dsa.Main'
 }
 
 // Build a "fat jar" (single file containing all dependencies) by default.
 // $ gradle clean build -> binary will be in build/libs/http_monitor.jar
 jar {
   manifest {
-   attributes('Main-Class': 'dev.agaber.dsa.ConsoleApp')
+   attributes('Main-Class': 'dev.agaber.dsa.Main')
   }
   from {
     configurations.runtimeClasspath.collect {
