@@ -182,7 +182,7 @@ final class LinkedLists {
    * <p>You are given the head of a singly linked-list. The list can be
    * represented as:
    *
-   * <pre>L0 → L1 → … → Ln - 1 → Ln</pre>
+   * <pre>L0 → L1 → ... → Ln - 1 → Ln</pre>
    *
    * <p>Reorder the list to be on the following form:
    *
@@ -192,7 +192,7 @@ final class LinkedLists {
    * may be changed.
    *
    * <ul>Constraints:
-   *   <li>The number of nodes in the list is in the range [1, 5 * 104].
+   *   <li>The number of nodes in the list is in the range [1, 5 * 10^4].
    *   <li>1 <= Node.val <= 1000
    * </ul>
    *
@@ -351,11 +351,11 @@ final class LinkedLists {
    *
    * <ul>Constraints:
    *   <li>k == lists.length
-   *  <li>0 <= k <= 10^4
-   *  <li>0 <= lists[i].length <= 500
-   *  <li>-10^4 <= lists[i][j] <= 10^4
-   *  <li>lists[i] is sorted in ascending order.
-   *  <li>The sum of lists[i].length will not exceed 10^4.
+   *   <li>0 <= k <= 10^4
+   *   <li>0 <= lists[i].length <= 500
+   *   <li>-10^4 <= lists[i][j] <= 10^4
+   *   <li>lists[i] is sorted in ascending order.
+   *   <li>The sum of lists[i].length will not exceed 10^4.
    * </ul>
    *
    * <ul>
